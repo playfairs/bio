@@ -19,6 +19,12 @@ body {
   transition: background 0.5s;
 }
 
+body > .gh-header,
+body > header[role="banner"],
+body > .Header {
+  display: none !important;
+}
+
 .cute-box {
   background: rgba(255, 255, 255, 0.7);
   border-radius: 2em;
@@ -57,4 +63,3 @@ body {
 <div class="cute-box">
   <div class="cute-face">Nyah~ >.<</div>
   <div class="cute-text">I'm a cute little femboy~<br>>_<</div>
-</div>
