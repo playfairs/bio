@@ -30,8 +30,6 @@ body > .Header {
   border-radius: 2em;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
   padding: 1.2em 2em;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border: 2px solid #ffb6d5;
   display: flex;
   flex-direction: column;
@@ -39,7 +37,6 @@ body > .Header {
   animation: popIn 1s cubic-bezier(.68,-0.55,.27,1.55);
   transition: transform 0.2s cubic-bezier(.68,-0.55,.27,1.55);
   will-change: transform;
-  max-width: 320px;
 }
 
 @keyframes popIn {
