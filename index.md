@@ -48,6 +48,11 @@ body > .Header {
   font-size: 2.5em;
   margin-bottom: 0.5em;
   filter: drop-shadow(0 0 6px #ffb6d5);
+  background: linear-gradient(90deg, #ffa7e9, #fab8ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 
 .cute-text {
