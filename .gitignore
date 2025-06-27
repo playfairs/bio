@@ -1,0 +1,12 @@
+/.DS_Store
+/.vscode
+.DS_Store
+node_modules
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+package-lock.json
+.yarnrc
+yarn.lock
+.vscode/settings.json
+.vscode
