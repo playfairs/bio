@@ -72,19 +72,42 @@ document.addEventListener('DOMContentLoaded', () => {
   const card = document.querySelector('.cute-box');
   if (!card) return;
 
+  let mouseX = 0, mouseY = 0;
+  let targetX = 0, targetY = 0;
+  let hovering = false;
+
+  function animate() {
+    mouseX += (targetX - mouseX) * 0.15;
+    mouseY += (targetY - mouseY) * 0.15;
+
+    if (hovering) {
+      card.style.transform = `rotateX(${-mouseY}deg) rotateY(${mouseX}deg)`;
+    } else {
+      card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+    }
+    requestAnimationFrame(animate);
+  }
+
+  card.addEventListener('mouseenter', (e) => {
+    hovering = true;
+  });
+
   card.addEventListener('mousemove', (e) => {
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * 10;
-    const rotateY = ((x - centerX) / centerX) * 10;
-    card.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`;
+    targetY = ((x - centerX) / centerX) * 10;
+    targetX = ((y - centerY) / centerY) * 10;
   });
 
   card.addEventListener('mouseleave', () => {
-    card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    hovering = false;
+    targetX = 0;
+    targetY = 0;
   });
+
+  animate();
 });
 </script>
