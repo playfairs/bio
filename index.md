@@ -26,7 +26,7 @@ body > .Header {
 }
 
 .cute-box {
-  background: rgb(219, 172, 213);
+  background: rgba(255, 255, 255, 0.7);
   border-radius: 2em;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
   padding: 1.2em 2em;
