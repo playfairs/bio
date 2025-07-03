@@ -258,42 +258,97 @@
 
     .icons {
       display: flex;
-      gap: 12px;
-      margin-bottom: 25px;
+      flex-direction: column;
+      gap: 8px;
+      margin: 15px 0;
     }
-
+    
     .icon {
       position: relative;
-      display: inline-block;
+      width: 100%;
     }
-
+    
+    .icon a {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      padding: 10px 15px;
+      text-decoration: none;
+      color: #fff;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    .icon a:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
     .icon img {
-      width: 30px;
-      height: 30px;
-      object-fit: cover;
-      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      margin-right: 12px;
+      transition: transform 0.2s ease;
+      filter: brightness(0) invert(1);
+      opacity: 0.9;
     }
-
+    
+    .icon a:hover img {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+    
     .tooltip {
       position: absolute;
-      bottom: 35px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(50, 50, 50, 0.9);
+      left: 100%;
+      top: 50%;
+      transform: translate(10px, -50%);
+      background: rgba(0, 0, 0, 0.8);
       color: #fff;
-      font-size: 12px;
-      padding: 6px 10px;
+      padding: 5px 10px;
       border-radius: 6px;
+      font-size: 12px;
+      white-space: nowrap;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      white-space: nowrap;
-      z-index: 10;
+      transition: all 0.2s ease;
+      margin-left: 5px;
+      backdrop-filter: blur(5px);
     }
-
+    
     .icon:hover .tooltip {
-  opacity: 1;
-  transform: translateX(-50%) translateY(-5px);
+      opacity: 1;
+      transform: translate(15px, -50%);
+    }
+    
+    .icon a::after {
+      content: '→';
+      margin-left: auto;
+      opacity: 0.6;
+      transition: all 0.2s ease;
+      font-size: 14px;
+    }
+    
+    .icon a:hover::after {
+      opacity: 1;
+      transform: translateX(3px);
+    }
+    
+    .icon a span {
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 0.9;
+      transition: opacity 0.2s ease;
+    }
+    
+    .icon a:hover span {
+      opacity: 1;
     }
 
     .status {
@@ -665,7 +720,7 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2"/>
               <path d="M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M12 8V2M16 5L12 2M12 2L8 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 8V2M16 5L12 2M12 2L8 5M14 5V11M14 5L11 8M14 5L17 8M6 5V11M6 5L3 8M6 5L9 8M6 19V16.5M3 19H9M6 16.5C6 15.1193 7.11929 14 8.5 14C9.88071 14 11 15.1193 11 16.5C11 17.8807 9.88071 19 8.5 19M6 16.5C6 17.8807 7.11929 19 8.5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
         </div>
@@ -698,6 +753,7 @@
           <div class="icon">
             <a href="https://discord.com/users/785042666475225109" target="_blank" rel="noopener noreferrer">
               <img src="https://images.icon-icons.com/2108/PNG/512/discord_icon_130958.png" alt="Discord Icon">
+              <span>Discord</span>
               <div class="tooltip">Discord</div>
             </a>
           </div>
@@ -705,6 +761,7 @@
           <div class="icon">
             <a href="https://github.com/playfairs" target="_blank" rel="noopener noreferrer">
               <img src="https://icones.pro/wp-content/uploads/2021/06/icone-github-grise.png" alt="GitHub Icon">
+              <span>GitHub</span>
               <div class="tooltip">GitHub</div>
             </a>
           </div>
