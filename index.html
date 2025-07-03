@@ -453,6 +453,43 @@
       background-color: #202225;
       border-radius: 3px;
     }
+
+    .activity-header-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .spotify-artist {
+      color: #b3b3b3;
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    .spotify-progress {
+      margin-top: 10px;
+    }
+
+    .spotify-progress-bar {
+      height: 4px;
+      background: #4d4d4d;
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+
+    .spotify-progress-fill {
+      height: 100%;
+      background: #1db954;
+      width: 0;
+      transition: width 0.1s linear;
+    }
+
+    .spotify-time {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: #b3b3b3;
+    }
   </style>
 </head>
 <body>
@@ -646,7 +683,14 @@
       header.className = 'activity-header';
       
       let iconUrl = '';
-      if (activity.assets?.large_image?.startsWith('mp:external/')) {
+      
+      if (activity.name === 'Spotify' && activity.assets) {
+        iconUrl = activity.assets.large_image;
+        if (iconUrl?.startsWith('spotify:')) {
+          const spotifyId = iconUrl.split(':')[1];
+          iconUrl = `https://i.scdn.co/image/${spotifyId}`;
+        }
+      } else if (activity.assets?.large_image?.startsWith('mp:external/')) {
         iconUrl = activity.assets.large_image.replace('mp:external/', 'https://media.discordapp.net/external/');
       } else if (activity.assets?.large_image) {
         iconUrl = `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}.png`;
@@ -657,27 +701,88 @@
              class="activity-icon" 
              alt="${activity.name}" 
              onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'"
-             style="background: #2f3136; padding: 5px; border-radius: 8px;">
-        <h4 class="activity-name">${activity.name}</h4>
+             style="background: #2f3136; padding: 5px; border-radius: 8px; ${activity.name === 'Spotify' ? 'border-radius: 4px;' : ''}">
+        <div class="activity-header-text">
+          <h4 class="activity-name">${activity.name}</h4>
+          ${activity.name === 'Spotify' ? `<div class="spotify-artist">${activity.state || ''}</div>` : ''}
+        </div>
       `;
       
       const details = document.createElement('div');
       details.className = 'activity-details';
-      if (activity.details) details.textContent = activity.details;
+      if (activity.details) details.textContent = activity.name === 'Spotify' ? `♪ ${activity.details}` : activity.details;
       
       const state = document.createElement('p');
       state.className = 'activity-state';
-      if (activity.state) state.textContent = activity.state;
+      if (activity.state && activity.name !== 'Spotify') state.textContent = activity.state;
       
       container.appendChild(header);
       if (activity.details) container.appendChild(details);
-      if (activity.state) container.appendChild(state);
+      if (activity.state && activity.name !== 'Spotify') container.appendChild(state);
+      
+      if (activity.name === 'Spotify' && activity.timestamps) {
+        const { start, end } = activity.timestamps;
+        if (start && end) {
+          const progressContainer = document.createElement('div');
+          progressContainer.className = 'spotify-progress';
+          
+          const progressBar = document.createElement('div');
+          progressBar.className = 'spotify-progress-bar';
+          
+          const progress = document.createElement('div');
+          progress.className = 'spotify-progress-fill';
+          
+          const timeInfo = document.createElement('div');
+          timeInfo.className = 'spotify-time';
+          
+          const now = Date.now();
+          const duration = end - start;
+          const elapsed = now - start;
+          const progressPercent = Math.min(100, Math.max(0, (elapsed / duration) * 100));
+          
+          progress.style.width = `${progressPercent}%`;
+          
+          const formatTime = (ms) => {
+            const seconds = Math.floor(ms / 1000) % 60;
+            const minutes = Math.floor(ms / (1000 * 60)) % 60;
+            return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+          };
+          
+          timeInfo.innerHTML = `
+            <span>${formatTime(elapsed)}</span>
+            <span>${formatTime(duration)}</span>
+          `;
+          
+          progressBar.appendChild(progress);
+          progressContainer.appendChild(progressBar);
+          progressContainer.appendChild(timeInfo);
+          container.appendChild(progressContainer);
+          
+          const updateProgress = () => {
+            const now = Date.now();
+            const elapsed = now - start;
+            const progressPercent = Math.min(100, Math.max(0, (elapsed / duration) * 100));
+            progress.style.width = `${progressPercent}%`;
+            
+            const timeElapsed = container.querySelector('.spotify-time span:first-child');
+            if (timeElapsed) {
+              timeElapsed.textContent = formatTime(elapsed);
+            }
+            
+            if (elapsed < duration) {
+              requestAnimationFrame(updateProgress);
+            }
+          };
+          
+          updateProgress();
+        }
+      }
       
       if (activity.assets) {
         const assetsContainer = document.createElement('div');
         assetsContainer.className = 'activity-assets';
         
-        if (activity.assets.large_text) {
+        if (activity.assets.large_text && activity.name !== 'Spotify') {
           assetsContainer.innerHTML += `
             <div class="activity-asset">
               <img src="${iconUrl || 'https://cdn.discordapp.com/embed/avatars/0.png'}" 
@@ -688,7 +793,7 @@
           `;
         }
         
-        if (activity.assets.small_text) {
+        if (activity.assets.small_text && activity.name !== 'Spotify') {
           let smallIconUrl = '';
           if (activity.assets.small_image?.startsWith('mp:external/')) {
             smallIconUrl = activity.assets.small_image.replace('mp:external/', 'https://media.discordapp.net/external/');
