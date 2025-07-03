@@ -99,7 +99,7 @@
     }
 
     .card {
-      width: 450px;
+      width: 500px;
       background: rgba(0, 0, 0, 0.478);
       border-radius: 15px;
       padding: 25px;
@@ -107,15 +107,10 @@
       transform-style: preserve-3d;
       transition: transform 0.2s ease;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      margin: 0;
     }
 
     .card:hover {
-      transform: scale(1.02);
-    }
-
-    .websites-card {
-      width: 450px;
+      transform: scale(1.05);
     }
 
     .profile-header {
@@ -551,65 +546,6 @@
       opacity: 1;
       background: rgba(255, 255, 255, 0.1);
     }
-
-    .container {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      padding: 20px;
-      max-width: 1600px;
-      margin: 0 auto;
-      flex-wrap: wrap;
-    }
-    
-    .websites-container {
-      width: 450px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    
-    .website-item {
-      background: rgba(0, 0, 0, 0.478);
-      border-radius: 15px;
-      padding: 15px;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      text-decoration: none;
-      transition: transform 0.2s ease, background 0.2s ease;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .website-item:hover {
-      background: rgba(0, 0, 0, 0.6);
-      transform: translateY(-2px);
-    }
-    
-    .website-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      object-fit: cover;
-      flex-shrink: 0;
-    }
-    
-    .website-info {
-      flex: 1;
-    }
-    
-    .website-name {
-      font-weight: 600;
-      margin: 0 0 4px 0;
-    }
-    
-    .website-url {
-      font-size: 12px;
-      color: #b3b3b3;
-      margin: 0;
-      word-break: break-all;
-    }
   </style>
 </head>
 <body>
@@ -624,116 +560,80 @@
   
   <button class="trigger-button">Click to Enter</button>
 
-  <div class="container">
-    <div class="card websites-card">
-      <h3 class="activity-title">My Links</h3>
-      <div class="websites-list">
-        <a href="https://github.com/playfairs" class="website-item" target="_blank" rel="noopener noreferrer">
-          <img src="https://www.google.com/s2/favicons?domain=github.com&sz=64" alt="GitHub" class="website-icon" onerror="this.style.display='none'">
-          <div class="website-info">
-            <h3 class="website-name">GitHub</h3>
-            <p class="website-url">github.com/playfairs</p>
+  <div class="card-container">
+    <div class="card">
+      <div class="profile-header">
+        <div></div>
+        <button class="refresh-button" id="refresh-button" title="Refresh Profile">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2"/>
+            <path d="M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M12 8V2M16 5L12 2M12 2L8 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="header">
+        <div class="profile-pic">
+          <img id="user-avatar" src="" alt="Profile Picture" class="pfp">
+          <img src="assets/angry.gif" alt="Decoration" class="decoration" width="37" height="37">
+        </div>        
+        <div class="user-info">
+          <div class="name-row">
+            <div id="display-name" class="display-name">Loading...</div>
+            <div id="guild-tag" class="guild-tag"></div>
           </div>
-        </a>
-        <a href="https://tiktok.com/@playfairs" class="website-item" target="_blank" rel="noopener noreferrer">
-          <img src="https://www.google.com/s2/favicons?domain=tiktok.com&sz=64" alt="TikTok (Playfairs)" class="website-icon" onerror="this.style.display='none'">
-          <div class="website-info">
-            <h3 class="website-name">TikTok (Playfairs)</h3>
-            <p class="website-url">tiktok.com/@playfairs</p>
-          </div>
-        </a>
-        <a href="https://www.tiktok.com/@sanctimonies" class="website-item" target="_blank" rel="noopener noreferrer">
-          <img src="https://www.google.com/s2/favicons?domain=tiktok.com&sz=64" alt="TikTok (Sanctimonies)" class="website-icon" onerror="this.style.display='none'">
-          <div class="website-info">
-            <h3 class="website-name">TikTok (Sanctimonies)</h3>
-            <p class="website-url">www.tiktok.com/@sanctimonies</p>
-          </div>
-        </a>
-        <a href="https://discord.com/users/your_id" class="website-item" target="_blank" rel="noopener noreferrer">
-          <img src="https://www.google.com/s2/favicons?domain=discord.com&sz=64" alt="Discord" class="website-icon" onerror="this.style.display='none'">
-          <div class="website-info">
-            <h3 class="website-name">Discord</h3>
-            <p class="website-url">discord.com/users/your_id</p>
-          </div>
-        </a>
+          <div id="username" class="username">@loading</div>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag">#python</span>
+        <span class="tag">#femboy</span>
+        <span class="tag">#＞＿＜</span>
+      </div>
+      <div class="location">
+        <span>Nyah~ I'm a cute little femboy ＞＿＜</span>
+      </div>
+      <div class="icons">
+        <div class="icon">
+          <a href="https://discord.com/users/785042666475225109" target="_blank" rel="noopener noreferrer">
+            <img src="https://images.icon-icons.com/2108/PNG/512/discord_icon_130958.png" alt="Discord Icon">
+            <div class="tooltip">Discord</div>
+          </a>
+        </div>
+        
+        <div class="icon">
+          <a href="https://github.com/playfairs" target="_blank" rel="noopener noreferrer">
+            <img src="https://icones.pro/wp-content/uploads/2021/06/icone-github-grise.png" alt="GitHub Icon">
+            <div class="tooltip">GitHub</div>
+          </a>
+        </div>
+      </div>                               
+      <div class="status">
+        <div class="profile-pic">
+          <img id="status-avatar" src="" alt="Status Picture" class="pfp">
+          <img src="assets/angry.gif" alt="Decoration" class="decoration" width="37" height="37">
+        </div>
+        <div class="status-text">Loading status...</div>
+      </div>      
+      <div class="player">
+        <div class="song-title">
+          <span>Summrs - Swing Ya Pole</span>
+          <span class="time-display">0:00 / 2:30</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress"></div>
+        </div>
+        <div class="volume-controls">
+          <span>＞,...,＜</span>
+          <input type="range" class="volume-slider" min="0" max="100" value="10">
+        </div>
       </div>
     </div>
     
-    <div class="card-container">
-      <div class="card">
-        <div class="profile-header">
-          <div></div>
-          <button class="refresh-button" id="refresh-button" title="Refresh Profile">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2"/>
-              <path d="M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M12 8V2M16 5L12 2M12 2L8 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-        </div>
-        <div class="header">
-          <div class="profile-pic">
-            <img id="user-avatar" src="" alt="Profile Picture" class="pfp">
-            <img src="assets/angry.gif" alt="Decoration" class="decoration" width="37" height="37">
-          </div>        
-          <div class="user-info">
-            <div class="name-row">
-              <div id="display-name" class="display-name">Loading...</div>
-              <div id="guild-tag" class="guild-tag"></div>
-            </div>
-            <div id="username" class="username">@loading</div>
-          </div>
-        </div>
-        <div class="tags">
-          <span class="tag">#python</span>
-          <span class="tag">#femboy</span>
-          <span class="tag">#＞＿＜</span>
-        </div>
-        <div class="location">
-          <span>Nyah~ I'm a cute little femboy ＞＿＜</span>
-        </div>
-        <div class="icons">
-          <div class="icon">
-            <a href="https://discord.com/users/785042666475225109" target="_blank" rel="noopener noreferrer">
-              <img src="https://images.icon-icons.com/2108/PNG/512/discord_icon_130958.png" alt="Discord Icon">
-              <div class="tooltip">Discord</div>
-            </a>
-          </div>
-          
-          <div class="icon">
-            <a href="https://github.com/playfairs" target="_blank" rel="noopener noreferrer">
-              <img src="https://icones.pro/wp-content/uploads/2021/06/icone-github-grise.png" alt="GitHub Icon">
-              <div class="tooltip">GitHub</div>
-            </a>
-          </div>
-        </div>                               
-        <div class="status">
-          <div class="profile-pic">
-            <img id="status-avatar" src="" alt="Status Picture" class="pfp">
-            <img src="assets/angry.gif" alt="Decoration" class="decoration" width="37" height="37">
-          </div>
-          <div class="status-text">Loading status...</div>
-        </div>      
-        <div class="player">
-          <div class="song-title">
-            <span>Summrs - Swing Ya Pole</span>
-            <span class="time-display">0:00 / 2:30</span>
-          </div>
-          <div class="progress-bar">
-            <div class="progress"></div>
-          </div>
-          <div class="volume-controls">
-            <span>＞,...,＜</span>
-            <input type="range" class="volume-slider" min="0" max="100" value="10">
-          </div>
-        </div>
-      </div>
-      
-      <div class="card activity-card">
-        <h3 class="activity-title">Current Activity</h3>
-        <div id="activities-container" class="activities-list">
-          <div class="activity-placeholder">No active activities</div>
-        </div>
+    <div class="card activity-card">
+      <h3 class="activity-title">Current Activity</h3>
+      <div id="activities-container" class="activities-list">
+        <div class="activity-placeholder">No active activities</div>
       </div>
     </div>
   </div>
@@ -1035,7 +935,7 @@
       } catch (error) {
         console.error('Error updating activities:', error);
         const container = document.getElementById('activities-container');
-        container.innerHTML = '<div class="activity-placeholder">Error loading activities, maybe press refresh?</div>';
+        container.innerHTML = '<div class="activity-placeholder">Error loading activities</div>';
       }
     }
 
