@@ -99,24 +99,18 @@
     }
 
     .card {
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(10px);
+      width: 500px;
+      background: rgba(0, 0, 0, 0.478);
       border-radius: 15px;
-      padding: 20px;
-      width: 100%;
-      max-width: 500px;
-      margin: 0 auto;
-      color: white;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      position: relative;
-      z-index: 1;
+      padding: 25px;
+      color: #fff;
+      transform-style: preserve-3d;
+      transition: transform 0.2s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
-    
+
     .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      transform: scale(1.05);
     }
 
     .profile-header {
