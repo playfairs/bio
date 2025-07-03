@@ -85,6 +85,12 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.5s ease;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
     .card-container.visible {
@@ -339,6 +345,114 @@
       border-radius: 50%;
       cursor: pointer;
     }
+
+    .activity-card {
+      width: 350px;
+      height: 500px;
+      overflow-y: auto;
+    }
+
+    .activity-title {
+      font-size: 18px;
+      color: #fff;
+      margin: 0 0 20px 0;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .activities-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .activity-item {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      padding: 15px;
+      transition: transform 0.2s;
+    }
+
+    .activity-item:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .activity-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .activity-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .activity-name {
+      font-weight: 600;
+      color: #fff;
+      margin: 0;
+    }
+
+    .activity-details {
+      font-size: 14px;
+      color: #b9bbbe;
+      margin: 5px 0;
+    }
+
+    .activity-state {
+      font-size: 13px;
+      color: #8e9297;
+      margin: 5px 0 0 0;
+    }
+
+    .activity-assets {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .activity-asset {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .activity-asset-icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+    }
+
+    .activity-asset-text {
+      font-size: 13px;
+      color: #b9bbbe;
+    }
+
+    .activity-placeholder {
+      color: #72767d;
+      text-align: center;
+      padding: 20px;
+      font-style: italic;
+    }
+
+    .activity-card::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .activity-card::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .activity-card::-webkit-scrollbar-thumb {
+      background-color: #202225;
+      border-radius: 3px;
+    }
   </style>
 </head>
 <body>
@@ -410,6 +524,13 @@
           <span>＞,...,＜</span>
           <input type="range" class="volume-slider" min="0" max="100" value="10">
         </div>
+      </div>
+    </div>
+    
+    <div class="card activity-card">
+      <h3 class="activity-title">Current Activity</h3>
+      <div id="activities-container" class="activities-list">
+        <div class="activity-placeholder">No active activities</div>
       </div>
     </div>
   </div>
@@ -514,6 +635,126 @@
     card.addEventListener('mouseleave', () => {
       card.style.transform = 'scale(1)';
     });
+
+    function formatActivity(activity) {
+      if (!activity) return '';
+      
+      const container = document.createElement('div');
+      container.className = 'activity-item';
+      
+      const header = document.createElement('div');
+      header.className = 'activity-header';
+      
+      let iconUrl = '';
+      if (activity.assets?.large_image?.startsWith('mp:external/')) {
+        iconUrl = activity.assets.large_image.replace('mp:external/', 'https://media.discordapp.net/external/');
+      } else if (activity.assets?.large_image) {
+        iconUrl = `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}.png`;
+      }
+      
+      header.innerHTML = `
+        <img src="${iconUrl || 'https://cdn.discordapp.com/embed/avatars/0.png'}" 
+             class="activity-icon" 
+             alt="${activity.name}" 
+             onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'"
+             style="background: #2f3136; padding: 5px; border-radius: 8px;">
+        <h4 class="activity-name">${activity.name}</h4>
+      `;
+      
+      const details = document.createElement('div');
+      details.className = 'activity-details';
+      if (activity.details) details.textContent = activity.details;
+      
+      const state = document.createElement('p');
+      state.className = 'activity-state';
+      if (activity.state) state.textContent = activity.state;
+      
+      container.appendChild(header);
+      if (activity.details) container.appendChild(details);
+      if (activity.state) container.appendChild(state);
+      
+      if (activity.assets) {
+        const assetsContainer = document.createElement('div');
+        assetsContainer.className = 'activity-assets';
+        
+        if (activity.assets.large_text) {
+          assetsContainer.innerHTML += `
+            <div class="activity-asset">
+              <img src="${iconUrl || 'https://cdn.discordapp.com/embed/avatars/0.png'}" 
+                   class="activity-asset-icon" 
+                   onerror="this.style.display='none'">
+              <span class="activity-asset-text">${activity.assets.large_text}</span>
+            </div>
+          `;
+        }
+        
+        if (activity.assets.small_text) {
+          let smallIconUrl = '';
+          if (activity.assets.small_image?.startsWith('mp:external/')) {
+            smallIconUrl = activity.assets.small_image.replace('mp:external/', 'https://media.discordapp.net/external/');
+          } else if (activity.assets.small_image) {
+            smallIconUrl = `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.small_image}.png`;
+          }
+          
+          assetsContainer.innerHTML += `
+            <div class="activity-asset">
+              <img src="${smallIconUrl || 'https://cdn.discordapp.com/embed/avatars/0.png'}" 
+                   class="activity-asset-icon" 
+                   onerror="this.style.display='none'">
+              <span class="activity-asset-text">${activity.assets.small_text}</span>
+            </div>
+          `;
+        }
+        
+        if (assetsContainer.children.length > 0) {
+          container.appendChild(assetsContainer);
+        }
+      }
+      
+      return container;
+    }
+
+    async function updateActivities() {
+      try {
+        const response = await fetch(API_URL);
+        if (!response.ok) throw new Error('Failed to fetch activities');
+        
+        const { data } = await response.json();
+        const activities = data.activities || [];
+        const container = document.getElementById('activities-container');
+        
+        container.innerHTML = '';
+        
+        const filteredActivities = activities
+          .filter(activity => activity.type !== 4)
+          .sort((a, b) => (b.created_at || 0) - (a.created_at || 0));
+        
+        if (filteredActivities.length === 0) {
+          container.innerHTML = '<div class="activity-placeholder">No active activities</div>';
+          return;
+        }
+        
+        filteredActivities.forEach(activity => {
+          const activityElement = formatActivity(activity);
+          if (activityElement) {
+            container.appendChild(activityElement);
+          }
+        });
+        
+      } catch (error) {
+        console.error('Error updating activities:', error);
+        const container = document.getElementById('activities-container');
+        container.innerHTML = '<div class="activity-placeholder">Error loading activities</div>';
+      }
+    }
+
+    updateActivities();
+    setInterval(updateActivities, 30000);
+    
+    setInterval(() => {
+      updateDiscordStatus();
+      updateActivities();
+    }, 30000);
   </script>
 </body>
 </html>
