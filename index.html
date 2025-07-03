@@ -111,10 +111,9 @@
       transform-style: preserve-3d;
       transition: transform 0.2s ease;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      min-height: 500px;
       display: flex;
       flex-direction: column;
-      min-height: 500px;
-      position: relative;
     }
 
     .card-content {
@@ -304,53 +303,6 @@
       opacity: 1;
     }
     
-    .tooltip {
-      position: absolute;
-      left: 100%;
-      top: 50%;
-      transform: translate(10px, -50%);
-      background: rgba(0, 0, 0, 0.8);
-      color: #fff;
-      padding: 5px 10px;
-      border-radius: 6px;
-      font-size: 12px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.2s ease;
-      margin-left: 5px;
-      backdrop-filter: blur(5px);
-    }
-    
-    .icon:hover .tooltip {
-      opacity: 1;
-      transform: translate(15px, -50%);
-    }
-    
-    .icon a::after {
-      content: '→';
-      margin-left: auto;
-      opacity: 0.6;
-      transition: all 0.2s ease;
-      font-size: 14px;
-    }
-    
-    .icon a:hover::after {
-      opacity: 1;
-      transform: translateX(3px);
-    }
-    
-    .icon a span {
-      font-size: 14px;
-      font-weight: 500;
-      opacity: 0.9;
-      transition: opacity 0.2s ease;
-    }
-    
-    .icon a:hover span {
-      opacity: 1;
-    }
-
     .status {
       margin-top: 20px;
       padding-top: 20px;
@@ -752,17 +704,15 @@
         <div class="icons">
           <div class="icon">
             <a href="https://discord.com/users/785042666475225109" target="_blank" rel="noopener noreferrer">
-              <img src="https://images.icon-icons.com/2108/PNG/512/discord_icon_130958.png" alt="Discord Icon">
-              <span>Discord</span>
-              <div class="tooltip">Discord</div>
+              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v8/icons/discord.svg" alt="Discord">
+              <span>Discord (@playfairs)</span>
             </a>
           </div>
           
           <div class="icon">
             <a href="https://github.com/playfairs" target="_blank" rel="noopener noreferrer">
-              <img src="https://icones.pro/wp-content/uploads/2021/06/icone-github-grise.png" alt="GitHub Icon">
-              <span>GitHub</span>
-              <div class="tooltip">GitHub</div>
+              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v8/icons/github.svg" alt="GitHub">
+              <span>GitHub (@playfairs)</span>
             </a>
           </div>
         </div>
