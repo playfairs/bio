@@ -922,7 +922,19 @@
         
         const filteredActivities = activities
           .filter(activity => activity.type !== 4)
-          .sort((a, b) => (b.created_at || 0) - (a.created_at || 0));
+          .sort((a, b) => {
+            const aIsSpotify = a.name === 'Spotify';
+            const bIsSpotify = b.name === 'Spotify';
+            const aIsCoding = a.name === 'Code' || a.name === 'Visual Studio Code' || a.name.includes('Visual Studio');
+            const bIsCoding = b.name === 'Code' || b.name === 'Visual Studio Code' || b.name.includes('Visual Studio');
+            
+            if (aIsSpotify && !bIsSpotify) return -1;
+            if (!aIsSpotify && bIsSpotify) return 1;
+            if (!aIsCoding && bIsCoding) return -1;
+            if (aIsCoding && !bIsCoding) return 1;
+            
+            return (b.created_at || 0) - (a.created_at || 0);
+          });
         
         if (filteredActivities.length === 0) {
           container.innerHTML = '<div class="activity-placeholder">No active activities</div>';
