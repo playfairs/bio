@@ -99,7 +99,7 @@
     }
 
     .card {
-      width: 500px;
+      width: 450px;
       background: rgba(0, 0, 0, 0.478);
       border-radius: 15px;
       padding: 25px;
@@ -107,10 +107,15 @@
       transform-style: preserve-3d;
       transition: transform 0.2s ease;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      margin: 0;
     }
 
     .card:hover {
-      transform: scale(1.05);
+      transform: scale(1.02);
+    }
+
+    .websites-card {
+      width: 450px;
     }
 
     .profile-header {
@@ -552,12 +557,13 @@
       justify-content: center;
       gap: 20px;
       padding: 20px;
-      max-width: 1400px;
+      max-width: 1600px;
       margin: 0 auto;
+      flex-wrap: wrap;
     }
     
     .websites-container {
-      width: 400px;
+      width: 450px;
       display: flex;
       flex-direction: column;
       gap: 20px;
@@ -619,37 +625,38 @@
   <button class="trigger-button">Click to Enter</button>
 
   <div class="container">
-    <div class="websites-container">
-      <h2>My Links</h2>
-      <a href="https://github.com/playfairs" class="website-item" target="_blank" rel="noopener noreferrer">
-        <img src="https://www.google.com/s2/favicons?domain=github.com&sz=64" alt="GitHub" class="website-icon" onerror="this.style.display='none'">
-        <div class="website-info">
-          <h3 class="website-name">GitHub</h3>
-          <p class="website-url">github.com/playfairs</p>
-        </div>
-      </a>
-      <a href="https://tiktok.com/@playfairs" class="website-item" target="_blank" rel="noopener noreferrer">
-        <img src="https://www.google.com/s2/favicons?domain=tiktok.com&sz=64" alt="TikTok (Playfairs)" class="website-icon" onerror="this.style.display='none'">
-        <div class="website-info">
-          <h3 class="website-name">TikTok (Playfairs)</h3>
-          <p class="website-url">tiktok.com/@playfairs</p>
-        </div>
-      </a>
-      <a href="https://www.tiktok.com/@sanctimonies" class="website-item" target="_blank" rel="noopener noreferrer">
-        <img src="https://www.google.com/s2/favicons?domain=tiktok.com&sz=64" alt="TikTok (Sanctimonies)" class="website-icon" onerror="this.style.display='none'">
-        <div class="website-info">
-          <h3 class="website-name">TikTok (Sanctimonies)</h3>
-          <p class="website-url">www.tiktok.com/@sanctimonies</p>
-        </div>
-      </a>
-      <a href="https://discord.com/users/your_id" class="website-item" target="_blank" rel="noopener noreferrer">
-        <img src="https://www.google.com/s2/favicons?domain=discord.com&sz=64" alt="Discord" class="website-icon" onerror="this.style.display='none'">
-        <div class="website-info">
-          <h3 class="website-name">Discord</h3>
-          <p class="website-url">discord.com/users/your_id</p>
-        </div>
-        
-      </a>
+    <div class="card websites-card">
+      <h3 class="activity-title">My Links</h3>
+      <div class="websites-list">
+        <a href="https://github.com/playfairs" class="website-item" target="_blank" rel="noopener noreferrer">
+          <img src="https://www.google.com/s2/favicons?domain=github.com&sz=64" alt="GitHub" class="website-icon" onerror="this.style.display='none'">
+          <div class="website-info">
+            <h3 class="website-name">GitHub</h3>
+            <p class="website-url">github.com/playfairs</p>
+          </div>
+        </a>
+        <a href="https://tiktok.com/@playfairs" class="website-item" target="_blank" rel="noopener noreferrer">
+          <img src="https://www.google.com/s2/favicons?domain=tiktok.com&sz=64" alt="TikTok (Playfairs)" class="website-icon" onerror="this.style.display='none'">
+          <div class="website-info">
+            <h3 class="website-name">TikTok (Playfairs)</h3>
+            <p class="website-url">tiktok.com/@playfairs</p>
+          </div>
+        </a>
+        <a href="https://www.tiktok.com/@sanctimonies" class="website-item" target="_blank" rel="noopener noreferrer">
+          <img src="https://www.google.com/s2/favicons?domain=tiktok.com&sz=64" alt="TikTok (Sanctimonies)" class="website-icon" onerror="this.style.display='none'">
+          <div class="website-info">
+            <h3 class="website-name">TikTok (Sanctimonies)</h3>
+            <p class="website-url">www.tiktok.com/@sanctimonies</p>
+          </div>
+        </a>
+        <a href="https://discord.com/users/your_id" class="website-item" target="_blank" rel="noopener noreferrer">
+          <img src="https://www.google.com/s2/favicons?domain=discord.com&sz=64" alt="Discord" class="website-icon" onerror="this.style.display='none'">
+          <div class="website-info">
+            <h3 class="website-name">Discord</h3>
+            <p class="website-url">discord.com/users/your_id</p>
+          </div>
+        </a>
+      </div>
     </div>
     
     <div class="card-container">
