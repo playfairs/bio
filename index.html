@@ -850,30 +850,35 @@
         const buttonsContainer = document.createElement('div');
         buttonsContainer.className = 'activity-buttons';
         
-        activity.buttons.forEach((buttonText, index) => {
+        activity.buttons.forEach(buttonText => {
           const button = document.createElement('a');
           button.className = 'activity-button';
+          button.textContent = buttonText;
           
           if (buttonText.toLowerCase().includes('repository')) {
-            const repoUrl = activity.metadata?.button_urls?.[index] || 
-                          `https://github.com/search?q=${encodeURIComponent(buttonText.replace('View ', ''))}`;
-            
-            button.href = repoUrl;
-            button.target = '_blank';
-            button.rel = 'noopener noreferrer';
             button.innerHTML = `<i>📦</i> ${buttonText}`;
+            if (activity.metadata?.button_urls) {
+              const repoUrl = activity.metadata.button_urls[activity.buttons.indexOf(buttonText)];
+              if (repoUrl) {
+                button.href = repoUrl;
+                button.target = '_blank';
+                button.rel = 'noopener noreferrer';
+              }
+            }
           } else if (buttonText.toLowerCase().includes('join')) {
             button.innerHTML = `<i>🎮</i> ${buttonText}`;
-            button.href = '#';
-            button.onclick = (e) => e.preventDefault();
           } else if (buttonText.toLowerCase().includes('watch')) {
             button.innerHTML = `<i>👁️</i> ${buttonText}`;
-            button.href = '#';
-            button.onclick = (e) => e.preventDefault();
           } else {
             button.innerHTML = `<i>🔗</i> ${buttonText}`;
+          }
+          
+          if (!button.href) {
             button.href = '#';
-            button.onclick = (e) => e.preventDefault();
+            button.onclick = (e) => {
+              e.preventDefault();
+              alert(`Button clicked: ${buttonText}`);
+            };
           }
           
           buttonsContainer.appendChild(button);
