@@ -37,3 +37,27 @@
     background-repeat: no-repeat;
     background-position: 7px 4px;
   }
+
+  .mystery-button {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #fff;
+    transition: all 0.2s ease;
+    margin-left: 8px;
+  }
+  
+  .mystery-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+  }
+  
+  .mystery-button:active {
+    transform: translateY(1px);
+  }
