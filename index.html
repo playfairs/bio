@@ -186,6 +186,22 @@
       color: #888;
     }
 
+    .badges {
+      display: flex;
+      gap: 4px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+    
+    .badge {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
     .tags {
       display: flex;
       gap: 12px;
@@ -517,6 +533,7 @@
             <div id="guild-tag" class="guild-tag"></div>
           </div>
           <div id="username" class="username">@loading</div>
+          <div id="badges" class="badges"></div>
         </div>
       </div>
       <div class="tags">
@@ -609,10 +626,53 @@
         const statusText = customStatus?.state || `${status.charAt(0).toUpperCase() + status.slice(1)}`;
         document.querySelector('.status-text').textContent = statusText;
         
+        if (user.public_flags !== undefined) {
+          updateBadges(user.public_flags);
+        }
+        
       } catch (error) {
         console.error('Error updating Discord status:', error);
         document.querySelector('.status-text').textContent = 'Error loading status';
       }
+    }
+
+    const BADGES = {
+      DISCORD_EMPLOYEE: { name: 'Discord Staff', icon: 'https://cdn.discordapp.com/emojis/964123724098834512.webp' },
+      PARTNERED_SERVER_OWNER: { name: 'Partnered Server Owner', icon: 'https://cdn.discordapp.com/emojis/1040824304832995428.webp' },
+      HYPESQUAD_EVENTS: { name: 'HypeSquad Events', icon: 'https://cdn.discordapp.com/emojis/1040824302997069834.webp' },
+      BUGHUNTER_LEVEL_1: { name: 'Bug Hunter Level 1', icon: 'https://cdn.discordapp.com/emojis/1040824301789900900.webp' },
+      BUGHUNTER_LEVEL_2: { name: 'Bug Hunter Level 2', icon: 'https://cdn.discordapp.com/emojis/1040824304514175036.webp' },
+      HYPESQUAD_BRAVERY: { name: 'HypeSquad Bravery', icon: 'https://cdn.discordapp.com/emojis/1040824303675572274.webp' },
+      HYPESQUAR_BRILLIANCE: { name: 'HypeSquad Brilliance', icon: 'https://cdn.discordapp.com/emojis/1040824306732236820.webp' },
+      HYPESQUAD_BALANCE: { name: 'HypeSquad Balance', icon: 'https://cdn.discordapp.com/emojis/1040824306000400444.webp' },
+      EARLY_SUPPORTER: { name: 'Early Supporter', icon: 'https://cdn.discordapp.com/emojis/1040824307684544592.webp' },
+      VERIFIED_BOT: { name: 'Verified Bot', icon: 'https://cdn.discordapp.com/emojis/1040824306465706094.webp' },
+      EARLY_VERIFIED_BOT_DEVELOPER: { name: 'Early Verified Bot Developer', icon: 'https://cdn.discordapp.com/emojis/1040824305282514944.webp' },
+      DISCORD_CERTIFIED_MODERATOR: { name: 'Moderator Programs Alumni', icon: 'https://cdn.discordapp.com/emojis/1040824303499518033.webp' },
+      ACTIVE_DEVELOPER: { name: 'Active Developer', icon: 'https://cdn.discordapp.com/emojis/1043820884545896448.webp' },
+    };
+
+    function getBadges(publicFlags) {
+      if (!publicFlags) return [];
+      return Object.entries(BADGES).filter(([flag]) => publicFlags & (1 << Object.keys(BADGES).indexOf(flag)));
+    }
+
+    function updateBadges(publicFlags) {
+      const badgesContainer = document.getElementById('badges');
+      if (!badgesContainer) return;
+      
+      badgesContainer.innerHTML = '';
+      
+      const badges = getBadges(publicFlags);
+      if (badges.length === 0) return;
+      
+      badges.forEach(([_, badge]) => {
+        const badgeElement = document.createElement('div');
+        badgeElement.className = 'badge';
+        badgeElement.title = badge.name;
+        badgeElement.style.backgroundImage = `url('${badge.icon}')`;
+        badgesContainer.appendChild(badgeElement);
+      });
     }
 
     updateDiscordStatus();
