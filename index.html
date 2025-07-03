@@ -141,9 +141,37 @@
       flex-direction: column;
     }
 
+    .name-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     .display-name {
       font-size: 24px;
       color: #ccc;
+    }
+
+    .guild-tag {
+      background: rgba(114, 137, 218, 0.2);
+      color: #7289da;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .guild-tag::before {
+      content: '';
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
     }
 
     .username {
@@ -332,7 +360,10 @@
           <img src="assets/angry.gif" alt="Decoration" class="decoration" width="37" height="37">
         </div>        
         <div class="user-info">
-          <div id="display-name" class="display-name">Loading...</div>
+          <div class="name-row">
+            <div id="display-name" class="display-name">Loading...</div>
+            <div id="guild-tag" class="guild-tag"></div>
+          </div>
           <div id="username" class="username">@loading</div>
         </div>
       </div>
@@ -403,6 +434,18 @@
         const displayName = user.global_name || user.username;
         document.getElementById('display-name').textContent = displayName;
         document.getElementById('username').textContent = `@${user.username}`;
+        
+        const guildTagElement = document.getElementById('guild-tag');
+        if (user.primary_guild) {
+          const { tag, badge } = user.primary_guild;
+          guildTagElement.textContent = tag;
+          guildTagElement.style.display = 'flex';
+          guildTagElement.style.backgroundImage = badge ? 
+            `url(https://cdn.discordapp.com/badge-guilds/${user.primary_guild.identity_guild_id}/${badge}.png?size=80)` : 
+            'none';
+        } else {
+          guildTagElement.style.display = 'none';
+        }
         
         const statusText = customStatus?.state || `${status.charAt(0).toUpperCase() + status.slice(1)}`;
         document.querySelector('.status-text').textContent = statusText;
