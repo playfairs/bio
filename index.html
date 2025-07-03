@@ -600,6 +600,31 @@
     .session-icon.active {
       opacity: 1;
     }
+    
+    .session-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      overflow: hidden;
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+      
+    .session-icon.active {
+      opacity: 1;
+    }
+      
+    .session-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+      
+    .sessions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
   </style>
 </head>
 <body>
@@ -688,9 +713,15 @@
       </div>
       <div class="card-footer">
         <div class="sessions" id="sessions">
-          <span class="session-icon" title="Desktop">💻</span>
-          <span class="session-icon" title="Mobile">📱</span>
-          <span class="session-icon" title="Web">🌐</span>
+          <div class="session-icon" title="Desktop">
+            <img src="assets/desktoponline.png" class="status-icon desktop" alt="Desktop" width="24" height="24">
+          </div>
+          <div class="session-icon" title="Mobile">
+            <img src="assets/mobileonline.png" class="status-icon mobile" alt="Mobile" width="24" height="24">
+          </div>
+          <div class="session-icon" title="Web">
+            <img src="assets/webonline.png" class="status-icon web" alt="Web" width="24" height="24">
+          </div>
         </div>
         <div class="account-age" id="account-age"></div>
       </div>
@@ -757,10 +788,24 @@
         
         statusTextElement.textContent = statusMap[status] || 'Offline';
         
-        const sessions = document.getElementById('sessions');
-        sessions.querySelector('[title="Desktop"]').classList.toggle('active', active_on_discord_desktop);
-        sessions.querySelector('[title="Mobile"]').classList.toggle('active', active_on_discord_mobile);
-        sessions.querySelector('[title="Web"]').classList.toggle('active', active_on_discord_web);
+        const updateSessionIcon = (type, isActive) => {
+          const icon = document.querySelector(`.session-icon[title="${type}"] img`);
+          if (!icon) return;
+          
+          const statusType = isActive ? status : 'offline';
+          icon.src = `assets/${type.toLowerCase()}${statusType}.png`;
+          
+          // Handle webp fallback for mobile
+          if (type === 'Mobile' && !isActive && !icon.src.endsWith('.webp')) {
+            icon.src = icon.src.replace('.png', '.webp');
+          }
+          
+          icon.parentElement.classList.toggle('active', isActive);
+        };
+        
+        updateSessionIcon('Desktop', active_on_discord_desktop);
+        updateSessionIcon('Mobile', active_on_discord_mobile);
+        updateSessionIcon('Web', active_on_discord_web);
         
         if (status === 'offline') {
           lastSeen.textContent = 'Last seen recently';
