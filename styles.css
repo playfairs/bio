@@ -32,3 +32,8 @@
     transform: translateX(-50%) translateY(-5px);
   }
   
+  .guild-tag {
+    background-size: auto 14px;
+    background-repeat: no-repeat;
+    background-position: 7px 4px;
+  }
