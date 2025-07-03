@@ -935,6 +935,7 @@
       button.style.pointerEvents = 'none';
       audio.play().catch(e => console.log('Audio playback failed:', e));
     });
+    let prevScale = 1;
 
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
@@ -942,9 +943,15 @@
       const centerY = rect.top + rect.height / 2;
       const mouseX = e.clientX;
       const mouseY = e.clientY;
-      const angleX = (mouseY - centerY) / 0;
-      const angleY = (mouseX - centerX) / 0;
-      card.style.transform = `scale(1.05) rotateX(${-angleX}deg) rotateY(${angleY}deg)`;
+      const angleX = (mouseY - centerY) / 25;
+      const angleY = (mouseX - centerX) / 25;
+      const scale = 1.05;
+      card.style.transform = `scale(${prevScale + (scale - prevScale) * 0.5}) rotateX(${-angleX}deg) rotateY(${angleY}deg)`;
+      prevScale += (scale - prevScale) * 0.1;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      prevScale = 1;
     });
 
     card.addEventListener('mouseleave', () => {
