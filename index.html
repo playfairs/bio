@@ -115,17 +115,24 @@
     }
 
     .profile-pic {
+      position: relative;
       width: 60px;
       height: 60px;
-      border-radius: 50%;
-      overflow: hidden;
-      background: #333;
     }
 
-    .profile-pic img {
+    .profile-pic > .pfp {
       width: 100%;
       height: 100%;
       border-radius: 50%;
+      object-fit: cover;
+      background: #333;
+    }
+    .profile-pic > .decoration {
+      position: absolute;
+      top: -10%;
+      left: -10%;
+      width: 120%;
+      height: 120%;
       object-fit: cover;
     }
 
@@ -205,6 +212,10 @@
       background: rgba(0, 0, 0, 0.3);
       border-radius: 10px;
       margin-bottom: 20px;
+    }
+    .status > .profile-pic {
+      width: 38px;
+      height: 38px;
     }
 
     .status-icon {
@@ -307,7 +318,7 @@
     <div class="card">
       <div class="header">
         <div class="profile-pic">
-          <img src="https://r.mtdv.me/api/v5/discord/785042666475225109/avatar" alt="Profile Picture" width="34" height="34">
+          <img src="https://r.mtdv.me/api/v5/discord/785042666475225109/avatar" alt="Profile Picture" class="pfp">
           <img src="assets/angry.gif" alt="Decoration" class="decoration" width="37" height="37">
         </div>        
         <div class="username">@playfairs</div>
@@ -336,8 +347,9 @@
         </div>
       </div>                               
       <div class="status">
-        <div class="status-icon">
-          <img src="https://r.mtdv.me/api/v5/discord/785042666475225109/avatar" alt="Status Icon" />
+        <div class="profile-pic">
+          <img src="https://r.mtdv.me/api/v5/discord/785042666475225109/avatar" alt="Profile Picture" class="pfp">
+          <img src="assets/angry.gif" alt="Decoration" class="decoration" width="37" height="37">
         </div>
         <div class="status-text">why tf u reading this</div>
       </div>      
