@@ -441,9 +441,8 @@
           guildTagElement.textContent = tag;
           guildTagElement.style.display = 'flex';
           guildTagElement.style.backgroundImage = badge ? 
-            `url(https://cdn.discordapp.com/guild-tag-badges/${user.primary_guild.identity_guild_id}/${badge}.png?size=30)` : 
+            `url(https://cdn.discordapp.com/guild-tag-badges/${user.primary_guild.identity_guild_id}/${badge}.png?size=80)` : 
             'none';
-          guildTagElement.style.backgroundSize = '20px 20px';
         } else {
           guildTagElement.style.display = 'none';
         }
