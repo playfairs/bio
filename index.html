@@ -396,17 +396,14 @@
         const customStatus = activities?.find(a => a.type === 4);
         const activity = activities?.find(a => a.type === 0);
         
-        // Update avatar in both places
         const avatarUrl = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.webp?size=256`;
         document.getElementById('user-avatar').src = avatarUrl;
         document.getElementById('status-avatar').src = avatarUrl;
         
-        // Update display name and username
         const displayName = user.global_name || user.username;
         document.getElementById('display-name').textContent = displayName;
         document.getElementById('username').textContent = `@${user.username}`;
         
-        // Update status
         const statusText = customStatus?.state || `${status.charAt(0).toUpperCase() + status.slice(1)}`;
         document.querySelector('.status-text').textContent = statusText;
         
@@ -416,9 +413,7 @@
       }
     }
 
-    // Initial load
     updateDiscordStatus();
-    // Update every 30 seconds
     setInterval(updateDiscordStatus, 30000);
 
     const button = document.querySelector('.trigger-button');
