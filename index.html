@@ -618,6 +618,53 @@
       gap: 8px;
       align-items: center;
     }
+    
+    .activity {
+      position: relative;
+    }
+      
+    .activity-duration {
+      position: absolute;
+      bottom: 12px;
+      right: 15px;
+      font-size: 12px;
+      color: #b9bbbe;
+      opacity: 0.8;
+      font-family: 'gg sans', 'Noto Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+      
+    .activity-spotify {
+      position: relative;
+      padding-right: 60px;
+    }
+      
+    .activity-default {
+      position: relative;
+      padding-right: 60px;
+    }
+      
+    .activity-default {
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+    }
+      
+    .activity-info {
+      flex: 1;
+    }
+      
+    .activity-name {
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+      
+    .activity-details,
+    .activity-state {
+      color: #b9bbbe;
+      font-size: 13px;
+      line-height: 1.3;
+    }
   </style>
 </head>
 <body>
@@ -873,169 +920,60 @@
     });
 
     function formatActivity(activity) {
-      if (!activity) return '';
+      if (!activity) return null;
       
-      const container = document.createElement('div');
-      container.className = 'activity-item';
+      const element = document.createElement('div');
+      element.className = 'activity';
       
-      const header = document.createElement('div');
-      header.className = 'activity-header';
+      const formatDuration = (startTime) => {
+        if (!startTime) return '';
+        const seconds = Math.floor((Date.now() - startTime) / 1000);
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        
+        if (hours > 0) {
+          return `${hours}h ${minutes}m`;
+        }
+        return `${minutes}m`;
+      };
       
-      const headerContent = document.createElement('div');
-      headerContent.className = 'activity-header-content';
-      
-      let iconUrl = '';
+      const duration = activity.timestamps?.start ? formatDuration(activity.timestamps.start) : '';
       
       if (activity.name === 'Spotify' && activity.assets) {
-        iconUrl = activity.assets.large_image;
-        if (iconUrl?.startsWith('spotify:')) {
-          const spotifyId = iconUrl.split(':')[1];
-          iconUrl = `https://i.scdn.co/image/${spotifyId}`;
-        }
-      } else if (activity.assets?.large_image?.startsWith('mp:external/')) {
-        iconUrl = activity.assets.large_image.replace('mp:external/', 'https://media.discordapp.net/external/');
-      } else if (activity.assets?.large_image) {
-        iconUrl = `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}.png`;
-      }
-      
-      headerContent.innerHTML = `
-        <img src="${iconUrl || 'https://cdn.discordapp.com/embed/avatars/0.png'}" 
-             class="activity-icon" 
-             alt="${activity.name}" 
-             onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'"
-             style="background: #2f3136; padding: 5px; border-radius: 8px; ${activity.name === 'Spotify' ? 'border-radius: 4px;' : ''}">
-        <div class="activity-header-text">
-          <h4 class="activity-name">${activity.name}</h4>
-          ${activity.name === 'Spotify' ? `<div class="spotify-artist">${activity.state || ''}</div>` : ''}
-        </div>
-      `;
-      
-      const details = document.createElement('div');
-      details.className = 'activity-details';
-      if (activity.details) details.textContent = activity.name === 'Spotify' ? `♪ ${activity.details}` : activity.details;
-      
-      const state = document.createElement('p');
-      state.className = 'activity-state';
-      if (activity.state && activity.name !== 'Spotify') state.textContent = activity.state;
-      
-      if (activity.name === 'Spotify' && activity.sync_id) {
-        const spotifyLink = document.createElement('a');
-        spotifyLink.href = `https://open.spotify.com/track/${activity.sync_id}`;
-        spotifyLink.target = '_blank';
-        spotifyLink.rel = 'noopener noreferrer';
-        spotifyLink.className = 'activity-external-link';
-        spotifyLink.title = 'Open in Spotify';
-        spotifyLink.innerHTML = `
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18 13V19M18 13L15 16M18 13L21 16M6 5V11M6 5L3 8M6 5L9 8M14 5V11M14 5L11 8M14 5L17 8M6 19V16.5M3 19H9M6 16.5C6 15.1193 7.11929 14 8.5 14C9.88071 14 11 15.1193 11 16.5C11 17.8807 9.88071 19 8.5 19M6 16.5C6 17.8807 7.11929 19 8.5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        element.innerHTML = `
+          <div class="activity-spotify">
+            <div class="spotify-album-art">
+              <img src="https://i.scdn.co/image/${activity.assets.large_image.replace('spotify:', '')}" alt="Album Art">
+              <div class="spotify-play">▶</div>
+            </div>
+            <div class="spotify-details">
+              <div class="spotify-title">${activity.details || 'No title'}</div>
+              <div class="spotify-artist">${activity.state || 'Unknown artist'}</div>
+              <div class="spotify-album">${activity.assets.large_text || 'Unknown album'}</div>
+              <div class="spotify-progress">
+                <div class="progress-bar">
+                  <div class="progress" style="width: ${(activity.timestamps?.end) ? 
+                    ((Date.now() - activity.timestamps.start) / (activity.timestamps.end - activity.timestamps.start) * 100) : 0}%"></div>
+                </div>
+              </div>
+              ${duration ? `<div class="activity-duration">${duration}</div>` : ''}
+            </div>
+          </div>
         `;
-        header.appendChild(spotifyLink);
-      }
-      
-      header.prepend(headerContent);
-      container.appendChild(header);
-      
-      container.appendChild(details);
-      if (activity.state && activity.name !== 'Spotify') container.appendChild(state);
-      
-      if (activity.name === 'Spotify' && activity.timestamps) {
-        const { start, end } = activity.timestamps;
-        if (start && end) {
-          const progressContainer = document.createElement('div');
-          progressContainer.className = 'spotify-progress';
-          
-          const progressBar = document.createElement('div');
-          progressBar.className = 'spotify-progress-bar';
-          
-          const progress = document.createElement('div');
-          progress.className = 'spotify-progress-fill';
-          
-          const timeInfo = document.createElement('div');
-          timeInfo.className = 'spotify-time';
-          
-          const now = Date.now();
-          const duration = end - start;
-          const elapsed = now - start;
-          const progressPercent = Math.min(100, Math.max(0, (elapsed / duration) * 100));
-          
-          progress.style.width = `${progressPercent}%`;
-          
-          const formatTime = (ms) => {
-            const seconds = Math.floor(ms / 1000) % 60;
-            const minutes = Math.floor(ms / (1000 * 60)) % 60;
-            return `${minutes}:${seconds.toString().padStart(2, '0')}`;
-          };
-          
-          timeInfo.innerHTML = `
-            <span>${formatTime(elapsed)}</span>
-            <span>${formatTime(duration)}</span>
-          `;
-          
-          progressBar.appendChild(progress);
-          progressContainer.appendChild(progressBar);
-          progressContainer.appendChild(timeInfo);
-          container.appendChild(progressContainer);
-          
-          const updateProgress = () => {
-            const now = Date.now();
-            const elapsed = now - start;
-            const progressPercent = Math.min(100, Math.max(0, (elapsed / duration) * 100));
-            progress.style.width = `${progressPercent}%`;
-            
-            const timeElapsed = container.querySelector('.spotify-time span:first-child');
-            if (timeElapsed) {
-              timeElapsed.textContent = formatTime(elapsed);
-            }
-            
-            if (elapsed < duration) {
-              requestAnimationFrame(updateProgress);
-            }
-          };
-          
-          updateProgress();
-        }
-      }
-      
-      if (activity.assets) {
-        const assetsContainer = document.createElement('div');
-        assetsContainer.className = 'activity-assets';
-        
-        if (activity.assets.large_text && activity.name !== 'Spotify') {
-          assetsContainer.innerHTML += `
-            <div class="activity-asset">
-              <img src="${iconUrl || 'https://cdn.discordapp.com/embed/avatars/0.png'}" 
-                   class="activity-asset-icon" 
-                   onerror="this.style.display='none'">
-              <span class="activity-asset-text">${activity.assets.large_text}</span>
+      } else {
+        element.innerHTML = `
+          <div class="activity-default">
+            <div class="activity-info">
+              <div class="activity-name">${activity.name}</div>
+              ${activity.details ? `<div class="activity-details">${activity.details}</div>` : ''}
+              ${activity.state ? `<div class="activity-state">${activity.state}</div>` : ''}
             </div>
-          `;
-        }
-        
-        if (activity.assets.small_text && activity.name !== 'Spotify') {
-          let smallIconUrl = '';
-          if (activity.assets.small_image?.startsWith('mp:external/')) {
-            smallIconUrl = activity.assets.small_image.replace('mp:external/', 'https://media.discordapp.net/external/');
-          } else if (activity.assets.small_image) {
-            smallIconUrl = `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.small_image}.png`;
-          }
-          
-          assetsContainer.innerHTML += `
-            <div class="activity-asset">
-              <img src="${smallIconUrl || 'https://cdn.discordapp.com/embed/avatars/0.png'}" 
-                   class="activity-asset-icon" 
-                   onerror="this.style.display='none'">
-              <span class="activity-asset-text">${activity.assets.small_text}</span>
-            </div>
-          `;
-        }
-        
-        if (assetsContainer.children.length > 0) {
-          container.appendChild(assetsContainer);
-        }
+            ${duration ? `<div class="activity-duration">${duration}</div>` : ''}
+          </div>
+        `;
       }
       
-      return container;
+      return element;
     }
 
     async function updateActivities() {
