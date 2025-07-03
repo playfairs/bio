@@ -788,11 +788,6 @@
           const statusType = isActive ? status : 'offline';
           icon.src = `assets/${type.toLowerCase()}${statusType}.png`;
           
-          // Handle webp fallback for mobile
-          if (type === 'Mobile' && !isActive && !icon.src.endsWith('.webp')) {
-            icon.src = icon.src.replace('.png', '.webp');
-          }
-          
           icon.parentElement.classList.toggle('active', isActive);
         };
         
