@@ -186,22 +186,6 @@
       color: #888;
     }
 
-    .badges {
-      display: flex;
-      gap: 4px;
-      margin-top: 4px;
-      flex-wrap: wrap;
-    }
-    
-    .badge {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-    }
-
     .tags {
       display: flex;
       gap: 12px;
@@ -396,9 +380,17 @@
 
     .activity-header {
       display: flex;
-      align-items: center;
+      justify-content: space-between;
+      align-items: flex-start;
       gap: 10px;
       margin-bottom: 10px;
+    }
+
+    .activity-header-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
     }
 
     .activity-icon {
@@ -506,6 +498,24 @@
       font-size: 10px;
       color: #b3b3b3;
     }
+
+    .activity-external-link {
+      color: #b3b3b3;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+    }
+
+    .activity-external-link:hover {
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.1);
+    }
   </style>
 </head>
 <body>
@@ -533,7 +543,6 @@
             <div id="guild-tag" class="guild-tag"></div>
           </div>
           <div id="username" class="username">@loading</div>
-          <div id="badges" class="badges"></div>
         </div>
       </div>
       <div class="tags">
@@ -626,53 +635,10 @@
         const statusText = customStatus?.state || `${status.charAt(0).toUpperCase() + status.slice(1)}`;
         document.querySelector('.status-text').textContent = statusText;
         
-        if (user.public_flags !== undefined) {
-          updateBadges(user.public_flags);
-        }
-        
       } catch (error) {
         console.error('Error updating Discord status:', error);
         document.querySelector('.status-text').textContent = 'Error loading status';
       }
-    }
-
-    const BADGES = {
-      DISCORD_EMPLOYEE: { name: 'Discord Staff', icon: 'https://cdn.discordapp.com/emojis/964123724098834512.webp' },
-      PARTNERED_SERVER_OWNER: { name: 'Partnered Server Owner', icon: 'https://cdn.discordapp.com/emojis/1040824304832995428.webp' },
-      HYPESQUAD_EVENTS: { name: 'HypeSquad Events', icon: 'https://cdn.discordapp.com/emojis/1040824302997069834.webp' },
-      BUGHUNTER_LEVEL_1: { name: 'Bug Hunter Level 1', icon: 'https://cdn.discordapp.com/emojis/1040824301789900900.webp' },
-      BUGHUNTER_LEVEL_2: { name: 'Bug Hunter Level 2', icon: 'https://cdn.discordapp.com/emojis/1040824304514175036.webp' },
-      HYPESQUAD_BRAVERY: { name: 'HypeSquad Bravery', icon: 'https://cdn.discordapp.com/emojis/1040824303675572274.webp' },
-      HYPESQUAR_BRILLIANCE: { name: 'HypeSquad Brilliance', icon: 'https://cdn.discordapp.com/emojis/1040824306732236820.webp' },
-      HYPESQUAD_BALANCE: { name: 'HypeSquad Balance', icon: 'https://cdn.discordapp.com/emojis/1040824306000400444.webp' },
-      EARLY_SUPPORTER: { name: 'Early Supporter', icon: 'https://cdn.discordapp.com/emojis/1040824307684544592.webp' },
-      VERIFIED_BOT: { name: 'Verified Bot', icon: 'https://cdn.discordapp.com/emojis/1040824306465706094.webp' },
-      EARLY_VERIFIED_BOT_DEVELOPER: { name: 'Early Verified Bot Developer', icon: 'https://cdn.discordapp.com/emojis/1040824305282514944.webp' },
-      DISCORD_CERTIFIED_MODERATOR: { name: 'Moderator Programs Alumni', icon: 'https://cdn.discordapp.com/emojis/1040824303499518033.webp' },
-      ACTIVE_DEVELOPER: { name: 'Active Developer', icon: 'https://cdn.discordapp.com/emojis/1043820884545896448.webp' },
-    };
-
-    function getBadges(publicFlags) {
-      if (!publicFlags) return [];
-      return Object.entries(BADGES).filter(([flag]) => publicFlags & (1 << Object.keys(BADGES).indexOf(flag)));
-    }
-
-    function updateBadges(publicFlags) {
-      const badgesContainer = document.getElementById('badges');
-      if (!badgesContainer) return;
-      
-      badgesContainer.innerHTML = '';
-      
-      const badges = getBadges(publicFlags);
-      if (badges.length === 0) return;
-      
-      badges.forEach(([_, badge]) => {
-        const badgeElement = document.createElement('div');
-        badgeElement.className = 'badge';
-        badgeElement.title = badge.name;
-        badgeElement.style.backgroundImage = `url('${badge.icon}')`;
-        badgesContainer.appendChild(badgeElement);
-      });
     }
 
     updateDiscordStatus();
@@ -742,6 +708,9 @@
       const header = document.createElement('div');
       header.className = 'activity-header';
       
+      const headerContent = document.createElement('div');
+      headerContent.className = 'activity-header-content';
+      
       let iconUrl = '';
       
       if (activity.name === 'Spotify' && activity.assets) {
@@ -756,7 +725,7 @@
         iconUrl = `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}.png`;
       }
       
-      header.innerHTML = `
+      headerContent.innerHTML = `
         <img src="${iconUrl || 'https://cdn.discordapp.com/embed/avatars/0.png'}" 
              class="activity-icon" 
              alt="${activity.name}" 
@@ -776,8 +745,26 @@
       state.className = 'activity-state';
       if (activity.state && activity.name !== 'Spotify') state.textContent = activity.state;
       
+      // Add Spotify external link if it's a Spotify activity
+      if (activity.name === 'Spotify' && activity.sync_id) {
+        const spotifyLink = document.createElement('a');
+        spotifyLink.href = `https://open.spotify.com/track/${activity.sync_id}`;
+        spotifyLink.target = '_blank';
+        spotifyLink.rel = 'noopener noreferrer';
+        spotifyLink.className = 'activity-external-link';
+        spotifyLink.title = 'Open in Spotify';
+        spotifyLink.innerHTML = `
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 13V19M18 13L15 16M18 13L21 16M6 5V11M6 5L3 8M6 5L9 8M14 5V11M14 5L11 8M14 5L17 8M6 19V16.5M3 19H9M6 16.5C6 15.1193 7.11929 14 8.5 14C9.88071 14 11 15.1193 11 16.5C11 17.8807 9.88071 19 8.5 19M6 16.5C6 17.8807 7.11929 19 8.5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        `;
+        header.appendChild(spotifyLink);
+      }
+      
+      header.prepend(headerContent);
       container.appendChild(header);
-      if (activity.details) container.appendChild(details);
+      
+      container.appendChild(details);
       if (activity.state && activity.name !== 'Spotify') container.appendChild(state);
       
       if (activity.name === 'Spotify' && activity.timestamps) {
