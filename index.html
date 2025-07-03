@@ -550,6 +550,56 @@
       opacity: 1;
       background: rgba(255, 255, 255, 0.1);
     }
+
+    .discord-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #b9bbbe;
+      font-size: 14px;
+    }
+    
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #747f8d;
+    }
+    
+    .status-dot.online { background: #3ba55c; }
+    .status-dot.idle { background: #faa61a; }
+    .status-dot.dnd { background: #ed4245; }
+    .status-dot.offline { background: #747f8d; }
+    
+    .last-seen {
+      font-size: 12px;
+      color: #72767d;
+      font-style: italic;
+    }
+    
+    .card-footer {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #b9bbbe;
+    }
+    
+    .sessions {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .session-icon {
+      opacity: 0.5;
+    }
+    
+    .session-icon.active {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -567,7 +617,11 @@
   <div class="card-container">
     <div class="card">
       <div class="profile-header">
-        <div></div>
+        <div class="discord-status">
+          <span class="status-dot" id="status-dot"></span>
+          <span id="status-text">Loading...</span>
+          <span id="last-seen" class="last-seen"></span>
+        </div>
         <button class="refresh-button" id="refresh-button" title="Refresh Profile">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2"/>
@@ -632,6 +686,14 @@
           <input type="range" class="volume-slider" min="0" max="100" value="10">
         </div>
       </div>
+      <div class="card-footer">
+        <div class="sessions" id="sessions">
+          <span class="session-icon" title="Desktop">💻</span>
+          <span class="session-icon" title="Mobile">📱</span>
+          <span class="session-icon" title="Web">🌐</span>
+        </div>
+        <div class="account-age" id="account-age"></div>
+      </div>
     </div>
     
     <div class="card activity-card">
@@ -652,7 +714,7 @@
         if (!response.ok) throw new Error('Failed to fetch status');
         
         const { data } = await response.json();
-        const { discord_user: user, discord_status: status, activities } = data;
+        const { discord_user: user, discord_status: status, activities, active_on_discord_desktop, active_on_discord_mobile, active_on_discord_web } = data;
         const customStatus = activities?.find(a => a.type === 4);
         const activity = activities?.find(a => a.type === 0);
         
@@ -678,6 +740,40 @@
         
         const statusText = customStatus?.state || `${status.charAt(0).toUpperCase() + status.slice(1)}`;
         document.querySelector('.status-text').textContent = statusText;
+        
+        const statusDot = document.getElementById('status-dot');
+        const statusTextElement = document.getElementById('status-text');
+        const lastSeen = document.getElementById('last-seen');
+        
+        statusDot.className = 'status-dot';
+        statusDot.classList.add(status || 'offline');
+        
+        const statusMap = {
+          online: 'Online',
+          idle: 'Idle',
+          dnd: 'Do Not Disturb',
+          offline: 'Offline'
+        };
+        
+        statusTextElement.textContent = statusMap[status] || 'Offline';
+        
+        const sessions = document.getElementById('sessions');
+        sessions.querySelector('[title="Desktop"]').classList.toggle('active', active_on_discord_desktop);
+        sessions.querySelector('[title="Mobile"]').classList.toggle('active', active_on_discord_mobile);
+        sessions.querySelector('[title="Web"]').classList.toggle('active', active_on_discord_web);
+        
+        if (status === 'offline') {
+          lastSeen.textContent = 'Last seen recently';
+        } else {
+          lastSeen.textContent = '';
+        }
+        
+        const accountAge = document.getElementById('account-age');
+        if (user.id) {
+          const timestamp = Math.floor(parseInt(user.id) / 4194304) + 1420070400000;
+          const createdDate = new Date(timestamp);
+          accountAge.textContent = `Member since ${createdDate.getFullYear()}`;
+        }
         
       } catch (error) {
         console.error('Error updating Discord status:', error);
