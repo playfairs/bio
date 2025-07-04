@@ -106,30 +106,28 @@
                 pointer-events: none;
                 transition: opacity 0.5s ease;
                 display: flex;
-                gap: 20px;
+                gap: 15px;
                 justify-content: center;
-                width: 100%;
-                max-width: 1100px;
+                width: 95%;
+                max-width: 1000px;
                 margin: 0 auto;
-            }
-
-            .card-container.visible {
-                opacity: 1;
-                pointer-events: all;
+                transform: scale(0.9);
+                transform-origin: center;
             }
 
             .card {
-                width: 500px;
+                width: 450px;
                 background: rgba(0, 0, 0, 0.478);
-                border-radius: 15px;
-                padding: 25px;
+                border-radius: 12px;
+                padding: 20px;
                 backdrop-filter: blur(10px);
                 transform-style: preserve-3d;
                 transition: transform 0.2s ease;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-                min-height: 300px;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+                min-height: 500px;
                 display: flex;
                 flex-direction: column;
+                transform: scale(0.95);
             }
 
             .card-content {
@@ -458,17 +456,18 @@
             }
 
             .activity-card {
-                width: 500px;
+                width: 450px;
                 background: rgba(0, 0, 0, 0.478);
-                border-radius: 15px;
-                padding: 25px;
+                border-radius: 12px;
+                padding: 20px;
                 backdrop-filter: blur(10px);
                 transform-style: preserve-3d;
                 transition: transform 0.2s ease;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-                min-height: 300px;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+                min-height: 250px;
                 display: flex;
                 flex-direction: column;
+                transform: scale(0.95);
             }
 
             .activity-card .activity-title {
@@ -707,6 +706,19 @@
                 gap: 8px;
                 align-items: center;
             }
+
+            @media (max-width: 1200px) {
+                .card-container {
+                    flex-direction: column;
+                    align-items: center;
+                    transform: scale(0.85);
+                }
+                
+                .card, .activity-card {
+                    width: 90%;
+                    max-width: 500px;
+                }
+            }
         </style>
     </head>
     <body>
@@ -755,7 +767,7 @@
                                         stroke-linecap="round"
                                     />
                                     <path
-                                        d="M12 8V2M16 5L12 2M12 2L8 5M12 2L9 5M14 5V11M14 5L11 8M14 5L17 8M6 5V11M6 5L3 8M6 5L9 8M6 19V16.5M3 19H9M6 16.5C6 15.1193 7.11929 14 8.5 14C9.88071 14 11 15.1193 11 16.5C11 17.8807 9.88071 19 8.5 19M6 16.5C6 17.8807 7.11929 19 8.5 19"
+                                        d="M12 8V2M16 5L12 2M12 2L8 5M12 2L9 5M14 5V11M14 5L11 8M14 5L17 8M6 5V11M6 5L3 8M6 5L9 8M6 5L9 8M6 19V16.5M3 19H9M6 16.5C6 15.1193 7.11929 14 8.5 14C9.88071 14 11 15.1193 11 16.5C11 17.8807 9.88071 19 8.5 19M6 16.5C6 17.8807 7.11929 19 8.5 19"
                                         stroke="currentColor"
                                         stroke-width="2"
                                         stroke-linecap="round"
@@ -1201,7 +1213,7 @@
                     spotifyLink.title = "Open in Spotify";
                     spotifyLink.innerHTML = `
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18 13V19M18 13L15 16M18 13L21 16M6 5V11M6 5L3 8M6 5L9 8M14 5V11M14 5L11 8M14 5L17 8M6 19V16.5M3 19H9M6 16.5C6 15.1193 7.11929 14 8.5 14C9.88071 14 11 15.1193 11 16.5C11 17.8807 9.88071 19 8.5 19M6 16.5C6 17.8807 7.11929 19 8.5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M18 13V19M18 13L15 16M18 13L21 16M6 5V11M6 5L3 8M6 5L9 8M14 5V11M14 5L11 8M14 5L17 8M6 5V11M6 5L3 8M6 5L9 8M6 5L9 8M6 19V16.5M3 19H9M6 16.5C6 15.1193 7.11929 14 8.5 14C9.88071 14 11 15.1193 11 16.5C11 17.8807 9.88071 19 8.5 19M6 16.5C6 17.8807 7.11929 19 8.5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         `;
                     header.appendChild(spotifyLink);
