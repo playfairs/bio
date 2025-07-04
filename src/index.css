@@ -71,10 +71,8 @@ body {
     transition: opacity 0.5s ease;
     display: flex;
     gap: 20px;
-    align-items: stretch;
     justify-content: center;
-    flex-wrap: wrap;
-    padding: 20px;
+    width: 100%;
     max-width: 1400px;
     margin: 0 auto;
 }
@@ -84,17 +82,18 @@ body {
     pointer-events: all;
 }
 
-.card,
-.activity-card,
-.github-card {
-    flex: 0 1 360px;
-    min-height: 500px;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 12px;
-    padding: 20px;
+.card {
+    width: 500px;
+    background: rgba(0, 0, 0, 0.478);
+    border-radius: 15px;
+    padding: 25px;
     backdrop-filter: blur(10px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform-style: preserve-3d;
+    transition: transform 0.2s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
 }
 
 .card-content {
@@ -712,12 +711,10 @@ body {
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     color: #fff;
-    height: 100%;
+    height: 500px;
     display: flex;
     flex-direction: column;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-    overflow: hidden;
 }
 
 .github-card:hover {
@@ -748,7 +745,6 @@ body {
 .repos-container {
     flex: 1;
     overflow-y: auto;
-    margin-top: 15px;
     padding-right: 5px;
     margin-right: -5px;
 }
