@@ -735,18 +735,19 @@
             }
 
             .github-card {
-                width: 300px;
+                width: 450px;
                 background: rgba(0, 0, 0, 0.478);
-                border-radius: 15px;
-                padding: 25px;
+                border-radius: 12px;
+                padding: 0;
                 backdrop-filter: blur(10px);
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-                color: #fff;
-                max-height: 80vh;
-                overflow-y: auto;
-                scrollbar-width: thin;
-                scrollbar-color: #7289da transparent;
+                transform-style: preserve-3d;
                 transition: transform 0.2s ease;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+                min-height: 250px;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                overflow: hidden;
             }
 
             .github-card h3 {
