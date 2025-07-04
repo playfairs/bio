@@ -743,55 +743,80 @@ body {
     margin: 0;
     font-size: 18px;
     color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.github-header h3::before {
+    content: '📂';
+    font-size: 16px;
 }
 
 .repos-container {
     flex: 1;
     overflow-y: auto;
-    margin-top: 15px;
-    padding-right: 5px;
-    margin-right: -5px;
+    margin-top: 12px;
+    padding-right: 8px;
+    margin-right: -8px;
 }
 
 .repo-card {
     background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
-    padding: 12px 15px;
+    padding: 14px;
     margin-bottom: 12px;
     transition: all 0.2s ease;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: #e0e0e0;
+    text-decoration: none;
+    display: block;
+    position: relative;
+    overflow: hidden;
 }
 
 .repo-card:hover {
-    background: rgba(114, 137, 218, 0.2);
-    transform: translateX(3px);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .repo-name {
     font-weight: 600;
-    color: #7289da;
-    text-decoration: none;
-    display: block;
+    font-size: 15px;
+    color: #fff;
     margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.repo-name::before {
+    content: '📦';
     font-size: 14px;
+    opacity: 0.8;
 }
 
 .repo-description {
     font-size: 13px;
-    color: #b9bbbe;
+    color: #b0b0b0;
     margin-bottom: 10px;
     line-height: 1.4;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .repo-meta {
     display: flex;
+    align-items: center;
     gap: 12px;
     font-size: 12px;
-    color: #8e9297;
+    color: #888;
+    flex-wrap: wrap;
 }
 
 .repo-meta span {
@@ -803,6 +828,20 @@ body {
 .repo-meta svg {
     width: 14px;
     height: 14px;
+    fill: currentColor;
+}
+
+.repo-language {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.repo-language-color {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #888;
 }
 
 .repos-container::-webkit-scrollbar {
@@ -814,7 +853,7 @@ body {
 }
 
 .repos-container::-webkit-scrollbar-thumb {
-    background-color: #7289da;
+    background-color: rgba(255, 255, 255, 0.2);
     border-radius: 4px;
 }
 
