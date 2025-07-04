@@ -63,18 +63,23 @@
   }
 
   .banner {
-    width: calc(100% + 2px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     height: 100px;
     background: url('assets/banner.jpg') center/cover;
-    position: relative;
-    margin: -1px -1px 0 -1px;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    overflow: hidden;
   }
 
   .card {
     position: relative;
     border-radius: 12px;
     overflow: hidden;
+    padding-top: 100px;
+  }
+
+  .card-content {
+    position: relative;
+    z-index: 1;
+    background: inherit;
   }
