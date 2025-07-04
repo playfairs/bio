@@ -67,19 +67,25 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 100px;
-    background: url('assets/banner.jpg') center/cover;
+    height: 150px;
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.6),
+        rgba(0, 0, 0, 0.2)
+      ),
+      var(--wallpaper) center/cover;
+    z-index: 0;
   }
 
   .card {
     position: relative;
     border-radius: 12px;
     overflow: hidden;
-    padding-top: 100px;
+    padding-top: 120px;
+    background: rgba(0, 0, 0, 0.8);
   }
 
   .card-content {
     position: relative;
-    z-index: 1;
-    background: inherit;
+    z-index: 2;
+    background: transparent;
   }
