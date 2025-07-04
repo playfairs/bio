@@ -735,33 +735,23 @@
             }
 
             .github-card {
-                width: 500px;
+                position: fixed;
+                left: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 10;
+                width: 350px;
                 background: rgba(0, 0, 0, 0.478);
                 border-radius: 15px;
                 padding: 25px;
                 backdrop-filter: blur(10px);
-                transform-style: preserve-3d;
-                transition: transform 0.2s ease;
                 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
                 color: #fff;
-                margin: 10px;
                 max-height: 80vh;
                 overflow-y: auto;
                 scrollbar-width: thin;
                 scrollbar-color: #7289da transparent;
-            }
-
-            .github-card::-webkit-scrollbar {
-                width: 6px;
-            }
-
-            .github-card::-webkit-scrollbar-thumb {
-                background-color: #7289da;
-                border-radius: 3px;
-            }
-
-            .github-card:hover {
-                transform: scale(1.05);
+                transition: all 0.3s ease;
             }
 
             .github-card h3 {
@@ -831,6 +821,12 @@
             .repo-meta svg {
                 width: 16px;
                 height: 16px;
+            }
+
+            @media (min-width: 1400px) {
+                .card-container {
+                    margin-left: 390px; /* 350px card width + 40px gap */
+                }
             }
         </style>
     </head>
