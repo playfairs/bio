@@ -89,3 +89,7 @@
     z-index: 2;
     background: transparent;
   }
+
+  .card:hover{
+    transform: scale(1.05);
+  }
