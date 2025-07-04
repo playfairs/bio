@@ -61,3 +61,10 @@
   .mystery-button:active {
     transform: translateY(1px);
   }
+
+  .banner {
+    width: 100%;
+    height: 100px;
+    background: url('assets/banner.jpg') center/cover;
+    position: relative;
+}
