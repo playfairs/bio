@@ -502,14 +502,21 @@
                 overflow-y: auto;
                 scrollbar-width: thin;
                 scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
             }
 
             .activity {
-                background: rgba(255, 255, 255, 0.05);
-                border-radius: 10px;
-                padding: 15px;
-                position: relative;
-                min-height: 80px;
+                background: rgba(255, 255, 255, 0.08);
+                border-radius: 8px;
+                padding: 14px;
+                color: #fff;
+                font-size: 14px;
+                transition: transform 0.2s ease, background-color 0.2s ease;
+                backdrop-filter: blur(5px);
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                margin: 4px 0;
             }
 
             .activity-header {
