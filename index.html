@@ -1065,7 +1065,7 @@
             const cardContainer = document.querySelector(".card-container");
             const card = document.querySelector(".card");
             const audio = document.getElementById("backgroundMusic");
-            const progressBar = document.querySelector(".progress");
+            const progressBar = document.querySelector(".progress-bar");
             const volumeSlider = document.querySelector(".volume-slider");
             const timeDisplay = document.querySelector(".time-display");
 
@@ -1079,7 +1079,7 @@
 
             audio.addEventListener("timeupdate", () => {
                 const progress = (audio.currentTime / audio.duration) * 100;
-                progressBar.style.width = `${progress}%`;
+                progressBar.querySelector('.progress').style.width = `${progress}%`;
                 timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
             });
 
@@ -1087,14 +1087,37 @@
                 audio.volume = e.target.value / 100;
             });
 
-            document
-                .querySelector(".progress-bar")
-                .addEventListener("click", (e) => {
-                    const rect = e.target.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const percentage = x / rect.width;
-                    audio.currentTime = percentage * audio.duration;
-                });
+            let isDragging = false;
+
+            const setProgress = (e) => {
+                const rect = progressBar.getBoundingClientRect();
+                const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+                const percentage = x / rect.width;
+                audio.currentTime = percentage * audio.duration;
+                progressBar.querySelector('.progress').style.width = `${percentage * 100}%`;
+            };
+
+            progressBar.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                setProgress(e);
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    setProgress(e);
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+
+            progressBar.addEventListener("click", (e) => {
+                const rect = e.target.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const percentage = x / rect.width;
+                audio.currentTime = percentage * audio.duration;
+            });
 
             button.addEventListener("click", () => {
                 cardContainer.classList.add("visible");
