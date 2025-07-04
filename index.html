@@ -1047,8 +1047,7 @@
                         const timestamp =
                             Math.floor(parseInt(user.id) / 4194304) +
                             1420070400000;
-                        const createdDate = new Date(timestamp);
-                        accountAge.textContent = `Member since ${createdDate.getFullYear()}`;
+                        accountAge.textContent = `Member since <t:${timestamp}:F>`;
                     }
                 } catch (error) {
                     console.error("Error updating Discord status:", error);
