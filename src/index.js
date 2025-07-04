@@ -515,6 +515,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// GitHub Repositories Fetch
 async function fetchGitHubRepos() {
     const container = document.getElementById('repos-container');
     
@@ -557,6 +558,8 @@ async function fetchGitHubRepos() {
     }
 }
 
+// Call the function when the page loads
 document.addEventListener('DOMContentLoaded', () => {
+    // Existing event listeners...
     fetchGitHubRepos();
 });
