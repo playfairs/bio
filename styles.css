@@ -63,8 +63,18 @@
   }
 
   .banner {
-    width: 100%;
+    width: calc(100% + 2px);
     height: 100px;
     background: url('assets/banner.jpg') center/cover;
     position: relative;
-}
+    margin: -1px -1px 0 -1px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    overflow: hidden;
+  }
+
+  .card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+  }
