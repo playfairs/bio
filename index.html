@@ -141,9 +141,9 @@
                 width: 100%;
             }
 
-            /* .card:hover:not(:first-child) {
+            .card:hover {
                 transform: scale(1.05);
-            } */
+            }
 
             .profile-header {
                 display: flex;
@@ -1104,23 +1104,9 @@
                     .play()
                     .catch((e) => console.log("Audio playback failed:", e));
             });
-            let prevScale = 1;
 
-            card.addEventListener("mousemove", (e) => {
-                const rect = card.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                const mouseX = e.clientX;
-                const mouseY = e.clientY;
-                const angleX = (mouseY - centerY) / 25;
-                const angleY = (mouseX - centerX) / 25;
-                const scale = 1.05;
-                card.style.transform = `scale(${prevScale + (scale - prevScale) * 0.5}) rotateX(${-angleX}deg) rotateY(${angleY}deg)`;
-                prevScale += (scale - prevScale) * 0.1;
-            });
-
-            card.addEventListener("mouseleave", () => {
-                prevScale = 1;
+            card.addEventListener("mouseenter", () => {
+                card.style.transform = "scale(1.05)";
             });
 
             card.addEventListener("mouseleave", () => {
