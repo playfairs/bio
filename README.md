@@ -10,7 +10,7 @@ A modern, interactive personal portfolio and status page that displays your Disc
   - Real-time Discord status and activity tracking
   - Shows current activity (playing, streaming, listening, etc.)
   - Displays session information across devices (desktop, mobile, web)
-  - Displays information such as your Displaye Name, Username, Avatar, and Guild Tag
+  - Shows your Display Name, Username, Avatar, and Guild Tag
 
 - **GitHub Integration**
   - Showcases your latest repositories
@@ -25,6 +25,7 @@ A modern, interactive personal portfolio and status page that displays your Disc
 - **Customizable**
   - Easy to modify colors, images, and content
   - Add your own sections and features
+  - Simple configuration system
 
 ## Getting Started
 
@@ -32,21 +33,50 @@ A modern, interactive personal portfolio and status page that displays your Disc
 
 - A web server (or GitHub Pages)
 - Basic knowledge of HTML, CSS, and JavaScript
+- A Discord User ID (for Discord integration)
+- A GitHub username (for GitHub integration)
 
 ### Installation
 
 1. Clone the repository:
    ```bash
    git clone https://github.com/playfairs/UwU.git
+   cd UwU
    ```
 
-2. Customize the following in `index.html`:
-   - Update Discord User ID
-   - Add your personal information
+2. Set up the configuration:
+   ```bash
+   cp config.example.js config.js
+   ```
+   Then edit `config.js` and fill in your details.
+
+3. Customize the following in `index.html`:
+   - Update social media links in the `icons` section
    - Modify the color scheme in the CSS
    - Add your own background video and music
 
-3. Deploy to your preferred hosting service or GitHub Pages
+4. Deploy to your preferred hosting service or GitHub Pages
+
+## Configuration
+
+### config.js
+
+Create a `config.js` file based on `config.example.js` with your personal information:
+
+```javascript
+const config = {
+    discord: {
+        userId: 'YOUR_DISCORD_USER_ID',
+    },
+    github: {
+        username: 'YOUR_GITHUB_USERNAME'
+    },
+};
+```
+
+### Finding Your Discord User ID
+1. Enable Developer Mode in Discord (Settings > Advanced > Developer Mode)
+2. Right-click your profile picture and select "Copy ID"
 
 ## Customization
 
