@@ -735,14 +735,16 @@
             }
 
             .github-card {
-                background: rgba(32, 34, 37, 0.8);
-                border-radius: 10px;
-                padding: 15px;
-                margin: 10px;
-                width: 300px;
+                width: 500px;
+                background: rgba(0, 0, 0, 0.478);
+                border-radius: 15px;
+                padding: 25px;
                 backdrop-filter: blur(10px);
-                border: 1px solid rgba(255, 255, 255, 0.1);
+                transform-style: preserve-3d;
+                transition: transform 0.2s ease;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
                 color: #fff;
+                margin: 10px;
                 max-height: 80vh;
                 overflow-y: auto;
                 scrollbar-width: thin;
@@ -758,45 +760,55 @@
                 border-radius: 3px;
             }
 
+            .github-card:hover {
+                transform: scale(1.05);
+            }
+
             .github-card h3 {
-                margin: 0 0 15px 0;
+                margin: 0 0 20px 0;
                 color: #fff;
-                font-size: 18px;
+                font-size: 20px;
                 display: flex;
                 align-items: center;
-                gap: 8px;
+                gap: 10px;
+                text-align: center;
+                justify-content: center;
             }
 
             .github-card h3 svg {
-                width: 20px;
-                height: 20px;
+                width: 24px;
+                height: 24px;
             }
 
             .repo-card {
-                background: rgba(0, 0, 0, 0.2);
-                border-radius: 8px;
-                padding: 12px;
-                margin-bottom: 12px;
-                transition: transform 0.2s, background 0.2s;
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 10px;
+                padding: 15px;
+                margin-bottom: 15px;
+                transition: all 0.2s ease;
+                border: 1px solid rgba(255, 255, 255, 0.1);
             }
 
             .repo-card:hover {
-                background: rgba(114, 137, 218, 0.2);
-                transform: translateX(5px);
+                background: rgba(114, 137, 218, 0.15);
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             }
 
             .repo-name {
-                font-weight: bold;
+                font-weight: 600;
                 color: #7289da;
                 text-decoration: none;
                 display: block;
-                margin-bottom: 5px;
+                margin-bottom: 8px;
+                font-size: 16px;
             }
 
             .repo-description {
-                font-size: 13px;
+                font-size: 14px;
                 color: #b9bbbe;
-                margin-bottom: 8px;
+                margin-bottom: 12px;
+                line-height: 1.4;
                 display: -webkit-box;
                 -webkit-line-clamp: 2;
                 -webkit-box-orient: vertical;
@@ -806,19 +818,19 @@
             .repo-meta {
                 display: flex;
                 gap: 15px;
-                font-size: 12px;
+                font-size: 13px;
                 color: #8e9297;
             }
 
             .repo-meta span {
                 display: flex;
                 align-items: center;
-                gap: 3px;
+                gap: 5px;
             }
 
             .repo-meta svg {
-                width: 14px;
-                height: 14px;
+                width: 16px;
+                height: 16px;
             }
         </style>
     </head>
