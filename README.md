@@ -71,4 +71,6 @@ Modify the social media links in the `icons` section of `index.html`.
 
 Made with ❤️ by [playfairs](https://github.com/playfairs) and my beloved [tech](https://github.com/TechnicDev)
 
-Fuck guns.lol and fuck slat.cc, my shit's better.
+<footer>
+    Fuck guns.lol and fuck slat.cc, my shit's better.
+</footer>
