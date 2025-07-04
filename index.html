@@ -95,7 +95,8 @@
             }
 
             .card-container {
-                position: relative;
+                position: fixed;
+                perspective: 1000px;
                 z-index: 3;
                 opacity: 0;
                 pointer-events: none;
@@ -103,7 +104,6 @@
                 display: flex;
                 gap: 20px;
                 justify-content: center;
-                align-items: flex-start;
                 width: 100%;
                 max-width: 1100px;
                 margin: 0 auto;
@@ -139,38 +139,6 @@
 
             .card:hover {
                 transform: scale(1.05);
-            }
-
-            .github-card {
-                width: 300px;
-                background: rgba(0, 0, 0, 0.478);
-                border-radius: 15px;
-                padding: 25px;
-                backdrop-filter: blur(10px);
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-                color: #fff;
-                max-height: 80vh;
-                overflow-y: auto;
-                scrollbar-width: thin;
-                scrollbar-color: #7289da transparent;
-                transition: transform 0.2s ease;
-                margin: 0;
-                flex-shrink: 0;
-            }
-
-            .github-card:hover {
-                transform: scale(1.02);
-            }
-
-            .github-card h3 {
-                margin: 0 0 20px 0;
-                color: #fff;
-                font-size: 20px;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                text-align: center;
-                justify-content: center;
             }
 
             .profile-header {
@@ -764,6 +732,32 @@
                 display: flex;
                 gap: 8px;
                 align-items: center;
+            }
+
+            .github-card {
+                width: 300px;
+                background: rgba(0, 0, 0, 0.478);
+                border-radius: 15px;
+                padding: 25px;
+                backdrop-filter: blur(10px);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+                color: #fff;
+                max-height: 80vh;
+                overflow-y: auto;
+                scrollbar-width: thin;
+                scrollbar-color: #7289da transparent;
+                transition: transform 0.2s ease;
+            }
+
+            .github-card h3 {
+                margin: 0 0 20px 0;
+                color: #fff;
+                font-size: 20px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                text-align: center;
+                justify-content: center;
             }
 
             .repo-card {
