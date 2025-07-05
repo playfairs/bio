@@ -423,7 +423,8 @@ body {
 
 .activity-card {
     width: 360px;
-    background: url('assets/banner.jpg') center/cover no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                url('assets/banner.jpg') center/cover no-repeat;
     border-radius: 12px;
     padding: 0;
     backdrop-filter: blur(10px);
@@ -437,22 +438,10 @@ body {
     overflow: hidden;
 }
 
-.activity-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 1;
-    border-radius: 12px;
-}
-
 .activity-card .activity-title,
 .activity-card .activities-list {
     position: relative;
-    z-index: 2;
+    z-index: 1;
 }
 
 .activity-card .activity-title {
