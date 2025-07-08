@@ -80,7 +80,7 @@ async function updateDiscordStatus() {
         updateSessionIcon("Desktop", active_on_discord_desktop);
         updateSessionIcon("Mobile", active_on_discord_mobile);
         updateSessionIcon("Web", active_on_discord_web);
-
+        // Calculate and display "last seen" time if offline
         if (status === "offline") {
             let lastTimestamp = 0;
             if (Array.isArray(activities) && activities.length > 0) {
@@ -96,25 +96,29 @@ async function updateDiscordStatus() {
             lastTimestamp = Math.floor(parseInt(user.id) / 4194304) + 1420070400000;
             }
 
+            if (lastTimestamp && !isNaN(lastTimestamp)) {
             const now = Date.now();
             const diffMs = now - lastTimestamp;
             const diffSec = Math.floor(diffMs / 1000);
 
             let lastSeenText = "Last seen recently";
-            if (diffSec > 60) {
-            const minutes = Math.floor(diffSec / 60);
-            const hours = Math.floor(minutes / 60);
-            const days = Math.floor(hours / 24);
+            if (diffSec >= 60) {
+                const minutes = Math.floor(diffSec / 60);
+                const hours = Math.floor(minutes / 60);
+                const days = Math.floor(hours / 24);
 
-            if (days > 0) {
+                if (days > 0) {
                 lastSeenText = `Last seen ${days} day${days > 1 ? "s" : ""} ago`;
-            } else if (hours > 0) {
+                } else if (hours > 0) {
                 lastSeenText = `Last seen ${hours} hour${hours > 1 ? "s" : ""} ago`;
-            } else {
+                } else {
                 lastSeenText = `Last seen ${minutes} minute${minutes > 1 ? "s" : ""} ago`;
-            }
+                }
             }
             lastSeen.textContent = lastSeenText;
+            } else {
+            lastSeen.textContent = "";
+            }
         } else {
             lastSeen.textContent = "";
         }
