@@ -80,7 +80,6 @@ async function updateDiscordStatus() {
         updateSessionIcon("Desktop", active_on_discord_desktop);
         updateSessionIcon("Mobile", active_on_discord_mobile);
         updateSessionIcon("Web", active_on_discord_web);
-        // Calculate and display "last seen" time if offline
         if (status === "offline") {
             let lastTimestamp = 0;
             if (Array.isArray(activities) && activities.length > 0) {
