@@ -82,7 +82,39 @@ async function updateDiscordStatus() {
         updateSessionIcon("Web", active_on_discord_web);
 
         if (status === "offline") {
-            lastSeen.textContent = "Last seen recently";
+            let lastTimestamp = 0;
+            if (Array.isArray(activities) && activities.length > 0) {
+            activities.forEach((activity) => {
+                if (activity.timestamps && activity.timestamps.end) {
+                lastTimestamp = Math.max(lastTimestamp, activity.timestamps.end);
+                } else if (activity.timestamps && activity.timestamps.start) {
+                lastTimestamp = Math.max(lastTimestamp, activity.timestamps.start);
+                }
+            });
+            }
+            if (!lastTimestamp && user.id) {
+            lastTimestamp = Math.floor(parseInt(user.id) / 4194304) + 1420070400000;
+            }
+
+            const now = Date.now();
+            const diffMs = now - lastTimestamp;
+            const diffSec = Math.floor(diffMs / 1000);
+
+            let lastSeenText = "Last seen recently";
+            if (diffSec > 60) {
+            const minutes = Math.floor(diffSec / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+
+            if (days > 0) {
+                lastSeenText = `Last seen ${days} day${days > 1 ? "s" : ""} ago`;
+            } else if (hours > 0) {
+                lastSeenText = `Last seen ${hours} hour${hours > 1 ? "s" : ""} ago`;
+            } else {
+                lastSeenText = `Last seen ${minutes} minute${minutes > 1 ? "s" : ""} ago`;
+            }
+            }
+            lastSeen.textContent = lastSeenText;
         } else {
             lastSeen.textContent = "";
         }
