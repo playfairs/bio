@@ -29,32 +29,36 @@
             content="https://bio.playfairs.cc/assets/favicon.png"
         />
 
-        <link rel="stylesheet" href="/src/index.css">
+        <link rel="stylesheet" href="/src/index.css" />
 
         <style>
-body {
-  background: url('https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDR5cmR6ZjYydWxtYmpwc3pwOHBkNmZjbnRldHAxYzQxZDNsbmw1dSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3ov9jWPi1AH2XUfI6Q/giphy.gif') no-repeat center center fixed;
-  background-size: cover;
-  background-position: 15%;
-  background-blend-mode: lighten;
-}
-</style>
-
+            body {
+                background: url("https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDR5cmR6ZjYydWxtYmpwc3pwOHBkNmZjbnRldHAxYzQxZDNsbmw1dSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3ov9jWPi1AH2XUfI6Q/giphy.gif")
+                    no-repeat center center fixed;
+                background-size: cover;
+                background-position: 15%;
+                background-blend-mode: lighten;
+            }
+        </style>
     </head>
     <body>
         <div class="video-background">
             <video autoplay muted loop id="bgVideo">
-                <source src="assets/your-video.mp4" type="video/mp4" /> <!-- Meh, can't find a good video, so I'll just do this for now-->
+                <source src="assets/your-video.mp4" type="video/mp4" />
+                <!-- Meh, can't find a good video, so I'll just do this for now-->
             </video>
         </div>
 
         <div class="background-blur"></div>
-        <audio id="backgroundMusic" loop src="assets/smezir2.mp3"></audio>
+        <audio
+            id="backgroundMusic"
+            loop
+            src="assets/chipichipichapachapa.mp3"
+        ></audio>
 
         <button class="trigger-button">Click to Enter</button>
 
         <div class="card-container">
-        
             <!-- <div class="github-card">
                 <div class="github-header">
                     <svg viewBox="0 0 24 24" fill="currentColor">
