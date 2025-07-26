@@ -306,8 +306,8 @@ body::before {
 
 .bio blockquote {
     margin: 0;
-    padding: 0;
-    border: none;
+    padding: 0 0 0 12px;
+    border-left: 4px solid #4f545c;
     background: transparent;
 }
 
