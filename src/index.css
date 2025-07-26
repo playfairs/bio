@@ -280,7 +280,7 @@ body::before {
 
 .bio p {
     margin: 0;
-    white-space: pre-line;
+    white-space: normal;
 }
 
 .bio a {
