@@ -265,8 +265,9 @@ body::before {
 }
 
 .bio {
-    width: 100%;
-    min-height: auto;
+    width: fit-content;
+    min-width: 100%;
+    max-width: 100%;
     background: rgba(255, 255, 255, 0.08);
     border-radius: 8px;
     padding: 12px 15px;
@@ -276,6 +277,7 @@ body::before {
     line-height: 1.5;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-sizing: border-box;
+    display: inline-block;
 }
 
 .bio p {
@@ -303,12 +305,10 @@ body::before {
 }
 
 .bio blockquote {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 8px 12px;
-    border-radius: 6px;
-    border-left: 3px solid #7289da;
-    margin: 8px 0;
-    font-style: italic;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
 }
 
 .tag {
