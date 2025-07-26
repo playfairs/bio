@@ -305,10 +305,12 @@ body::before {
 }
 
 .bio blockquote {
-    margin: 0;
-    padding: 0 0 0 12px;
-    border-left: 4px solid #4f545c;
-    background: transparent;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 12px;
+    border-radius: 6px;
+    border-left: 3px solid #7289da;
+    margin: 8px 0;
+    font-style: italic;
 }
 
 .tag {
