@@ -1,4 +1,4 @@
-const DISCORD_USER_ID = "785042666475225109";
+const DISCORD_USER_ID = "1426711359059394662";
 const API_URL = `https://api.lanyard.rest/v1/users/${DISCORD_USER_ID}`;
 
 async function updateDiscordStatus() {

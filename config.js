@@ -1,6 +1,6 @@
 const config = {
     discord: {
-        userId: '785042666475225109',
+        userId: '1426711359059394662',
     },
     github: {
         username: 'playfairs'
