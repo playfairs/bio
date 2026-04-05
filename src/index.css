@@ -486,7 +486,7 @@ body::before {
 
 .activity-card {
     width: 360px;
-    background: url('../assets/banner.jpg') center/cover no-repeat;
+    background: url('https://raw.githubusercontent.com/playfairs/playfairs/refs/heads/main/banner.jpg') center/cover no-repeat;
     border-radius: 12px;
     padding: 0;
     backdrop-filter: blur(10px);

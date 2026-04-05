@@ -2,7 +2,7 @@
 
 A modern, interactive personal portfolio and status page that displays your Discord presence, GitHub activity, and more in a beautiful, animated interface.
 
-![Preview](assets/banner.jpg)
+![Preview](https://raw.githubusercontent.com/playfairs/playfairs/refs/heads/main/banner.jpg)
 
 ## Features
 
